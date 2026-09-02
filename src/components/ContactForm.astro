@@ -1,0 +1,179 @@
+---
+const CONTACT_EMAIL = "info@bronckaersmeatandmore.be";
+---
+
+<section class="contact-form-section">
+  <div class="container">
+    <div class="form-card" data-reveal>
+      <p class="eyebrow">Vraag op maat</p>
+      <h2>Stuur ons een bericht</h2>
+      <p class="lead">
+        Voor een offerte voor uw feest, een vraag over ons assortiment of
+        gewoon een bestelling &mdash; vul het formulier in en wij nemen zo
+        snel mogelijk contact met u op.
+      </p>
+
+      <form id="contact-form" class="form">
+        <div class="field">
+          <label for="name">Naam</label>
+          <input type="text" id="name" name="name" required />
+        </div>
+
+        <div class="field">
+          <label for="email">E-mailadres</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="field">
+          <label for="phone">Telefoonnummer (optioneel)</label>
+          <input type="tel" id="phone" name="phone" />
+        </div>
+
+        <div class="field">
+          <label for="subject">Onderwerp</label>
+          <select id="subject" name="subject">
+            <option>Algemene vraag</option>
+            <option>Traiteur &amp; catering</option>
+            <option>Bestelling</option>
+            <option>Andere</option>
+          </select>
+        </div>
+
+        <div class="field field-full">
+          <label for="message">Bericht</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Verstuur bericht</button>
+      </form>
+
+      <p class="form-note">
+        Dit opent uw e-mailprogramma met het bericht klaar om te versturen
+        naar <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Belt u
+        liever? <a href="tel:+3211881185">011 88 11 85</a>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-form-section {
+    background: var(--color-white);
+  }
+
+  .form-card {
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .form-card h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  }
+
+  .lead {
+    color: var(--color-charcoal-soft);
+    margin: 1.25rem auto 2.5rem;
+    max-width: 55ch;
+  }
+
+  .form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    text-align: left;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .field-full {
+    grid-column: 1 / -1;
+  }
+
+  label {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-charcoal-soft);
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(28, 23, 20, 0.2);
+    border-radius: var(--radius);
+    background: var(--color-cream);
+    color: var(--color-charcoal);
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-copper);
+  }
+
+  button[type="submit"] {
+    grid-column: 1 / -1;
+    justify-self: start;
+    margin-top: 0.5rem;
+  }
+
+  .form-note {
+    grid-column: 1 / -1;
+    margin-top: 1.75rem;
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  .form-note a {
+    color: var(--color-copper);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 700px) {
+    .form {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script define:vars={{ CONTACT_EMAIL }}>
+  const form = document.getElementById("contact-form");
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const name = data.get("name");
+    const email = data.get("email");
+    const phone = data.get("phone");
+    const subject = data.get("subject");
+    const message = data.get("message");
+
+    const body = [
+      `Naam: ${name}`,
+      `E-mail: ${email}`,
+      phone ? `Telefoon: ${phone}` : null,
+      "",
+      message,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+      `[Website] ${subject}`
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+  });
+</script>

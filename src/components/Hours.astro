@@ -1,0 +1,202 @@
+---
+const hours = [
+  { day: "Maandag", time: "Gesloten" },
+  { day: "Dinsdag", time: "08:00 – 12:30 & 13:30 – 18:30" },
+  { day: "Woensdag", time: "08:00 – 12:30 & 13:30 – 18:30" },
+  { day: "Donderdag", time: "08:00 – 12:30 & 13:30 – 18:30" },
+  { day: "Vrijdag", time: "08:00 – 12:30 & 13:30 – 18:30" },
+  { day: "Zaterdag", time: "08:00 – 18:00" },
+  { day: "Zondag", time: "08:00 – 12:30" },
+];
+---
+
+<section id="openingsuren" class="hours">
+  <div class="container hours-grid">
+    <div class="hours-card" data-reveal>
+      <div class="hours-head">
+        <p class="eyebrow">Openingsuren</p>
+        <span id="open-status" class="open-status">
+          <span class="open-dot"></span>
+          <span class="open-label">&nbsp;</span>
+        </span>
+      </div>
+      <h2>Wanneer u bij ons terecht kan</h2>
+      <ul>
+        {hours.map((h, i) => (
+          <li data-day-index={i}>
+            <span>{h.day}</span>
+            <span class="time">{h.time}</span>
+          </li>
+        ))}
+      </ul>
+      <p class="hours-note">* Feestdagen kunnen afwijken — bel gerust om te bevestigen.</p>
+    </div>
+
+    <div class="hours-image" data-reveal style="--reveal-delay: 120ms">
+      <img
+        src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?auto=format&fit=crop&w=900&q=80"
+        alt="Toonbank van de slagerij en bakkerij"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hours-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .hours-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .open-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-charcoal-soft);
+  }
+
+  .open-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-charcoal-soft);
+    opacity: 0.4;
+  }
+
+  .open-status.is-open .open-dot {
+    background: #4c7a4c;
+    opacity: 1;
+    box-shadow: 0 0 0 3px rgba(76, 122, 76, 0.18);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  .open-status.is-open .open-label {
+    color: #3f6b3f;
+  }
+
+  .open-status.is-closed .open-dot {
+    background: var(--color-copper);
+    opacity: 1;
+  }
+
+  .open-status.is-closed .open-label {
+    color: var(--color-copper);
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% {
+      box-shadow: 0 0 0 3px rgba(76, 122, 76, 0.18);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(76, 122, 76, 0.08);
+    }
+  }
+
+  .hours-card h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.2vw, 2.4rem);
+    max-width: 14ch;
+  }
+
+  .hours-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 2.25rem 0 0;
+  }
+
+  .hours-card li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.85rem 0.6rem;
+    margin: 0 -0.6rem;
+    border-bottom: 1px solid rgba(28, 23, 20, 0.1);
+    font-size: 0.98rem;
+    border-radius: var(--radius);
+    transition: background 0.3s ease;
+  }
+
+  .hours-card li.is-today {
+    background: rgba(170, 153, 99, 0.14);
+    font-weight: 600;
+  }
+
+  .time {
+    font-weight: 600;
+    color: var(--color-copper);
+  }
+
+  .hours-note {
+    margin-top: 1.25rem;
+    font-size: 0.8rem;
+    color: var(--color-charcoal-soft);
+    font-style: italic;
+  }
+
+  .hours-image img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  @media (max-width: 900px) {
+    .hours-grid {
+      grid-template-columns: 1fr;
+    }
+    .hours-image {
+      order: -1;
+    }
+  }
+</style>
+
+<script>
+  // Schedule ranges in minutes-since-midnight, indexed Maandag=0 ... Zondag=6
+  const schedule: number[][][] = [
+    [],
+    [[480, 750], [810, 1110]],
+    [[480, 750], [810, 1110]],
+    [[480, 750], [810, 1110]],
+    [[480, 750], [810, 1110]],
+    [[480, 1080]],
+    [[480, 750]],
+  ];
+
+  const now = new Date();
+  const dayIndex = (now.getDay() + 6) % 7;
+  const minutesNow = now.getHours() * 60 + now.getMinutes();
+
+  const todayRanges = schedule[dayIndex];
+  const isOpen = todayRanges.some(([start, end]) => minutesNow >= start && minutesNow < end);
+
+  const statusEl = document.getElementById("open-status");
+  const labelEl = statusEl?.querySelector(".open-label");
+
+  if (statusEl && labelEl) {
+    if (isOpen) {
+      statusEl.classList.add("is-open");
+      const closingRange = todayRanges.find(([start, end]) => minutesNow >= start && minutesNow < end);
+      const closeH = Math.floor(closingRange![1] / 60);
+      const closeM = String(closingRange![1] % 60).padStart(2, "0");
+      labelEl.textContent = `Nu open — tot ${closeH}:${closeM}`;
+    } else {
+      statusEl.classList.add("is-closed");
+      labelEl.textContent = "Nu gesloten";
+    }
+  }
+
+  const todayLi = document.querySelector(`[data-day-index="${dayIndex}"]`);
+  todayLi?.classList.add("is-today");
+</script>

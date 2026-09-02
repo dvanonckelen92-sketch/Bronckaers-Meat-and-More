@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Assortment from "../components/Assortment.astro";
+---
+
+<Layout
+  title="Assortiment — Bronckaers Meat and More"
+  description="Ontdek ons volledige assortiment: rund- en varkensvlees, vers brood uit onze bakkerij, huisbereide charcuterie, traiteurgerechten, gevogelte, BBQ-pakketten en catering."
+>
+  <PageHero
+    eyebrow="Ons assortiment"
+    title="Alles voor bij het diner, de barbecue of het feest"
+    lead="Dagvers, ambachtelijk bereid en met zorg samengesteld door onze eigen beenhouwers en bakkers."
+    image="https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=1600&q=80"
+  />
+  <Assortment variant="full" />
+</Layout>

@@ -1,0 +1,119 @@
+---
+interface Props {
+  variant?: "home" | "page";
+}
+
+const { variant = "home" } = Astro.props;
+
+const features = [
+  "Persoonlijk advies voor uw feest of bedrijfsevent",
+  "Koude en warme schotels op maat",
+  "Broodjes &amp; recepties voor elk aantal gasten",
+  "Steeds vers en op de dag zelf bereid",
+];
+---
+
+<section id="traiteur" class="traiteur">
+  <div class="container traiteur-grid">
+    <div class="traiteur-image" data-reveal>
+      <img
+        src="/images/nu_in_de_too.jpg"
+        alt="Traiteurgerechten van Bronckaers Meat and More"
+      />
+    </div>
+
+    <div class="traiteur-content">
+      {variant === "home" && (
+        <>
+          <p class="eyebrow eyebrow-light" data-reveal>Traiteur &amp; Catering</p>
+          <h2 data-reveal style="--reveal-delay: 80ms">Wij verzorgen uw feest, van klein tot groots</h2>
+          <p class="lead" data-reveal style="--reveal-delay: 160ms">
+            Familiefeest, huwelijk, bedrijfsevent of gewoon een gezellige
+            babyborrel: bij Bronckaers Meat &amp; More stellen we samen met u
+            een traiteuraanbod op maat samen.
+          </p>
+        </>
+      )}
+
+      <ul class="features" data-reveal style="--reveal-delay: 240ms">
+        {features.map((f) => (
+          <li set:html={f} />
+        ))}
+      </ul>
+
+      <a href="/contact" class="btn btn-primary" data-reveal style="--reveal-delay: 320ms">
+        Vraag een offerte aan
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .traiteur {
+    background: var(--color-charcoal);
+    color: var(--color-cream);
+  }
+
+  .traiteur-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .traiteur-image img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .eyebrow-light {
+    color: var(--color-gold-light);
+  }
+
+  h2 {
+    color: var(--color-white);
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.2vw, 2.4rem);
+    max-width: 16ch;
+  }
+
+  .lead {
+    color: var(--color-cream-soft);
+    margin-top: 1.25rem;
+    max-width: 50ch;
+  }
+
+  .features {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .features li {
+    position: relative;
+    padding-left: 1.75rem;
+    color: var(--color-cream-soft);
+    font-size: 0.95rem;
+  }
+
+  .features li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.5em;
+    width: 10px;
+    height: 1px;
+    background: var(--color-gold);
+  }
+
+  @media (max-width: 900px) {
+    .traiteur-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

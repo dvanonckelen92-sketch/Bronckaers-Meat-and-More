@@ -1,0 +1,62 @@
+---
+const values = [
+  {
+    title: "Vers &amp; lokaal",
+    text: "Korte ketens en dagverse producten, elke dag opnieuw.",
+  },
+  {
+    title: "Ambachtelijk vakmanschap",
+    text: "Alles wordt met de hand en met zorg bereid in ons eigen atelier.",
+  },
+  {
+    title: "Persoonlijk contact",
+    text: "Advies op maat, van dagelijkse boodschap tot groot feest.",
+  },
+];
+---
+
+<section class="values">
+  <div class="container grid">
+    {values.map((v, i) => (
+      <div class="value" data-reveal style={`--reveal-delay: ${i * 120}ms`}>
+        <span class="value-number"></span>
+        <h3 set:html={v.title} />
+        <p set:html={v.text} />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .values {
+    background: var(--color-white);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .value {
+    border-top: 2px solid var(--color-gold);
+    padding-top: 1.5rem;
+  }
+
+  .value h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .value p {
+    color: var(--color-charcoal-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 800px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

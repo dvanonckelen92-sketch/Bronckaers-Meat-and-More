@@ -1,0 +1,87 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  lead?: string;
+  image: string;
+}
+
+const { eyebrow, title, lead, image } = Astro.props;
+---
+
+<section class="page-hero">
+  <div class="page-hero-bg" role="img" aria-label="" style={`background-image: url('${image}')`}>
+    <div class="page-hero-overlay"></div>
+  </div>
+
+  <div class="container page-hero-content">
+    <p class="eyebrow eyebrow-light" data-reveal>{eyebrow}</p>
+    <h1 data-reveal style="--reveal-delay: 90ms">{title}</h1>
+    {lead && (
+      <p class="page-hero-lead" data-reveal style="--reveal-delay: 180ms">
+        {lead}
+      </p>
+    )}
+  </div>
+</section>
+
+<style>
+  .page-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 42vh;
+    color: var(--color-cream);
+    overflow: hidden;
+  }
+
+  .page-hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 900px) {
+    .page-hero-bg {
+      background-attachment: fixed;
+    }
+  }
+
+  .page-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(23, 15, 13, 0.94) 0%,
+      rgba(23, 15, 13, 0.8) 45%,
+      rgba(164, 98, 47, 0.5) 100%
+    );
+  }
+
+  .page-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    padding-top: 3.5rem;
+    padding-bottom: 3.5rem;
+  }
+
+  .eyebrow-light {
+    color: var(--color-gold-light);
+    margin-bottom: 1.25rem;
+  }
+
+  .page-hero h1 {
+    font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+    color: var(--color-white);
+  }
+
+  .page-hero-lead {
+    margin-top: 1.25rem;
+    color: var(--color-cream-soft);
+    max-width: 52ch;
+  }
+</style>

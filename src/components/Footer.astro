@@ -1,0 +1,104 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <span class="logo-badge">
+        <img class="logo-mark" src="/images/logo-transparent.png" alt="Bronckaers Meat and More logo" />
+      </span>
+      <div>
+        <strong>Bronckaers Meat &amp; More</strong>
+        <p>Steenweg 147, 3890 Gingelom</p>
+      </div>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer navigatie">
+      <a href="/over-ons">Over ons</a>
+      <a href="/assortiment">Assortiment</a>
+      <a href="/traiteur">Traiteur</a>
+      <a href="/contact">Contact</a>
+    </nav>
+
+    <SocialLinks variant="dark" />
+  </div>
+
+  <div class="container footer-bottom">
+    <p>&copy; {year} Bronckaers Meat and More. Alle rechten voorbehouden.</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--color-charcoal);
+    color: var(--color-cream-soft);
+    border-top: 1px solid rgba(201, 161, 90, 0.2);
+    padding-top: 3rem;
+  }
+
+  .footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .logo-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: var(--color-white);
+    border: 1px solid var(--color-gold);
+    border-radius: 50%;
+    padding: 5px;
+    flex-shrink: 0;
+  }
+
+  .logo-mark {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .footer-brand strong {
+    display: block;
+    color: var(--color-white);
+    font-family: var(--font-display);
+  }
+
+  .footer-brand p {
+    font-size: 0.85rem;
+    margin-top: 0.2rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+  }
+
+  .footer-links a:hover {
+    color: var(--color-gold-light);
+  }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(201, 161, 90, 0.15);
+    padding: 1.5rem 0;
+    font-size: 0.78rem;
+    color: rgba(246, 239, 228, 0.55);
+    text-align: center;
+  }
+</style>

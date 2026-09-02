@@ -1,0 +1,142 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+
+const photos = [
+  "/images/renovatie.jpg",
+  "/images/ham.jpg",
+  "https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=800&q=80",
+  "/images/lamburgers.jpg",
+  "https://images.unsplash.com/photo-1615937691194-97dbd3f3dc29?auto=format&fit=crop&w=800&q=80",
+  "/images/nu_in_de_too.jpg",
+];
+---
+
+<section id="sfeer" class="gallery">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Sfeer &amp; vakmanschap</p>
+      <h2>Een kijkje in de winkel</h2>
+    </div>
+
+    <div class="gallery-grid">
+      {photos.map((src, i) => (
+        <div class="gallery-item" data-reveal style={`--reveal-delay: ${(i % 3) * 90}ms`}>
+          <img src={src} alt="Bronckaers Meat and More" loading="lazy" />
+        </div>
+      ))}
+    </div>
+
+    <div class="gallery-follow">
+      <p class="gallery-note">Meer foto's en het laatste nieuws:</p>
+      <SocialLinks variant="light" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery {
+    background: var(--color-white);
+  }
+
+  .section-head {
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .section-head h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 140px;
+    gap: 0.75rem;
+  }
+
+  .gallery-item:nth-child(1) {
+    grid-column: span 3;
+    grid-row: span 2;
+  }
+  .gallery-item:nth-child(2) {
+    grid-column: span 3;
+    grid-row: span 2;
+  }
+  .gallery-item:nth-child(3),
+  .gallery-item:nth-child(4),
+  .gallery-item:nth-child(5),
+  .gallery-item:nth-child(6) {
+    grid-column: span 3;
+    grid-row: span 2;
+  }
+
+  @media (min-width: 700px) {
+    .gallery-item:nth-child(3),
+    .gallery-item:nth-child(4),
+    .gallery-item:nth-child(5),
+    .gallery-item:nth-child(6) {
+      grid-column: span 2;
+    }
+  }
+
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .gallery-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid var(--color-gold);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .gallery-item:hover::after {
+    opacity: 1;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+    filter: saturate(0.94);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.08);
+    filter: saturate(1.08);
+  }
+
+  .gallery-follow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+  }
+
+  .gallery-note {
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  @media (max-width: 700px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 160px;
+    }
+    .gallery-item,
+    .gallery-item:nth-child(1),
+    .gallery-item:nth-child(2) {
+      grid-column: span 1 !important;
+      grid-row: span 1 !important;
+    }
+  }
+</style>

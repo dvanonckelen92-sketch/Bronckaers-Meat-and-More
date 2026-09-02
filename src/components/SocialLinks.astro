@@ -1,0 +1,111 @@
+---
+interface Props {
+  class?: string;
+  variant?: "dark" | "light";
+}
+
+const { class: className = "", variant = "dark" } = Astro.props;
+
+const uid = Math.random().toString(36).slice(2, 9);
+
+const links = [
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/profile.php?id=100039448939399",
+    icon: "facebook",
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/bronckaersmeatandmore/",
+    icon: "instagram",
+  },
+  {
+    label: "Google Bedrijfsprofiel",
+    href: "https://www.google.com/maps/search/?api=1&query=Bronckaers+Meat+and+More+Steenweg+147+Gingelom",
+    icon: "google",
+  },
+];
+---
+
+<div class={`social-links social-links-${variant} ${className}`}>
+  {links.map((link) => (
+    <a href={link.href} target="_blank" rel="noopener" aria-label={link.label} class="social-link">
+      {link.icon === "facebook" && (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="12" fill="#1877F2" />
+          <path
+            fill="#fff"
+            d="M16.671 15.469l.532-3.469h-3.328v-2.25c0-.949.465-1.875 1.956-1.875h1.513v-2.953s-1.374-.234-2.686-.234c-2.741 0-4.533 1.662-4.533 4.669v2.643H7.078v3.469h3.047v8.385a12.13 12.13 0 003.75 0v-8.385h2.796z"
+          />
+        </svg>
+      )}
+      {link.icon === "instagram" && (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <defs>
+            <linearGradient id={`ig-${uid}`} x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#FEC053" />
+              <stop offset="30%" stop-color="#F2094C" />
+              <stop offset="65%" stop-color="#CD1A7D" />
+              <stop offset="100%" stop-color="#6559CA" />
+            </linearGradient>
+          </defs>
+          <rect width="24" height="24" rx="6" fill={`url(#ig-${uid})`} />
+          <rect x="6" y="6" width="12" height="12" rx="3.5" fill="none" stroke="#fff" stroke-width="1.6" />
+          <circle cx="12" cy="12" r="3.2" fill="none" stroke="#fff" stroke-width="1.6" />
+          <circle cx="15.6" cy="8.4" r="0.9" fill="#fff" />
+        </svg>
+      )}
+      {link.icon === "google" && (
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="12" fill="#fff" />
+          <path
+            fill="#4285F4"
+            d="M23.02 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.19c-.27 1.48-1.09 2.73-2.32 3.58v3h3.75c2.2-2.02 3.4-5 3.4-8.82z"
+          />
+          <path
+            fill="#34A853"
+            d="M12 23c3.15 0 5.79-1.04 7.72-2.83l-3.75-3c-1.04.7-2.38 1.12-3.97 1.12-3.05 0-5.63-2.06-6.55-4.83H1.57v3.03A11.98 11.98 0 0012 23z"
+          />
+          <path
+            fill="#FBBC05"
+            d="M5.45 13.46a6.9 6.9 0 010-4.92V5.51H1.57a11.98 11.98 0 000 10.98l3.88-3.03z"
+          />
+          <path
+            fill="#EA4335"
+            d="M12 4.75c1.71 0 3.25.59 4.46 1.75l3.34-3.34C17.78 1.24 15.14 0 12 0 7.31 0 3.26 2.69 1.57 6.51l3.88 3.03C6.37 6.77 8.95 4.75 12 4.75z"
+          />
+        </svg>
+      )}
+    </a>
+  ))}
+</div>
+
+<style>
+  .social-links {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(23, 15, 13, 0.18);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .social-link svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 18px rgba(23, 15, 13, 0.28);
+  }
+</style>

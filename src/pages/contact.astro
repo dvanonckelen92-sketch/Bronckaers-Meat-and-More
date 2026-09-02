@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import Contact from "../components/Contact.astro";
+import Hours from "../components/Hours.astro";
+import ContactForm from "../components/ContactForm.astro";
+---
+
+<Layout
+  title="Contact — Bronckaers Meat and More"
+  description="Bezoek Bronckaers Meat and More in Gingelom, bel ons of stuur een bericht. Adres, openingsuren en routebeschrijving."
+>
+  <PageHero
+    eyebrow="Contact"
+    title="Kom langs of neem contact op"
+    lead="We helpen u graag verder, of het nu gaat om een dagelijkse boodschap of een uitgebreide bestelling voor uw feest."
+    image="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1600&q=80"
+  />
+  <Contact />
+  <Hours />
+  <ContactForm />
+</Layout>

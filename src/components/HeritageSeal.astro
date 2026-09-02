@@ -1,0 +1,57 @@
+---
+interface Props {
+  size?: number;
+}
+
+const { size = 150 } = Astro.props;
+---
+
+<div class="seal" style={`--seal-size: ${size}px`}>
+  <svg class="seal-ring" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <path id="sealCirclePath" d="M 100,100 m -82,0 a 82,82 0 1,1 164,0 a 82,82 0 1,1 -164,0" />
+    </defs>
+    <circle cx="100" cy="100" r="98" fill="none" stroke="currentColor" stroke-width="1" opacity="0.55" />
+    <circle cx="100" cy="100" r="66" fill="none" stroke="currentColor" stroke-width="1" opacity="0.55" />
+    <text font-size="11.5" letter-spacing="3.2" fill="currentColor">
+      <textPath href="#sealCirclePath" startOffset="0%">
+        SLAGERIJ &amp; BAKKERIJ &#8226; SINDS 1962 &#8226; GINGELOM &#8226;
+      </textPath>
+    </text>
+  </svg>
+  <div class="seal-center">
+    <img class="seal-bull" src="/images/logo-transparent.png" alt="" />
+  </div>
+</div>
+
+<style define:vars={{ sealSize: `${size}px` }}>
+  .seal {
+    position: relative;
+    width: var(--seal-size);
+    height: var(--seal-size);
+    color: var(--color-gold);
+    flex-shrink: 0;
+  }
+
+  .seal-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    animation: spin-slow 40s linear infinite;
+  }
+
+  .seal-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .seal-bull {
+    width: 42%;
+    height: 42%;
+    object-fit: contain;
+  }
+</style>

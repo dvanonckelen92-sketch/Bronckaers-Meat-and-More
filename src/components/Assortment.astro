@@ -1,0 +1,175 @@
+---
+interface Props {
+  variant?: "home" | "full";
+}
+
+const { variant = "full" } = Astro.props;
+
+const items = [
+  {
+    title: "Rund- &amp; varkensvlees",
+    text: "Dagverse stukken, kort gerijpt en met zorg versneden door onze eigen beenhouwers.",
+    img: "https://images.unsplash.com/photo-1551028150-64b9f398f678?auto=format&fit=crop&w=700&q=80",
+  },
+  {
+    title: "Vers brood &amp; bakkerij",
+    text: "Dagelijks vers gebakken brood, koffiekoeken en gebak uit onze eigen bakkerij.",
+    img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=700&q=80",
+  },
+  {
+    title: "Huisbereide charcuterie",
+    text: "Ambachtelijke worsten, paté's en gerookte specialiteiten, allemaal eigen bereiding &mdash; zoals onze volledig zelfgemaakte, 100% allergeenvrije gekookte ham.",
+    img: "/images/ham.jpg",
+  },
+  {
+    title: "Traiteurgerechten",
+    text: "Kant-en-klare schotels, dagelijks vers in de toog &mdash; enkel op te warmen.",
+    img: "/images/nu_in_de_too.jpg",
+  },
+  {
+    title: "Gevogelte &amp; wild",
+    text: "Seizoensgebonden wild en hoevegevogelte van geselecteerde lokale leveranciers.",
+    img: "https://images.unsplash.com/photo-1587593810167-a84920ea0781?auto=format&fit=crop&w=700&q=80",
+  },
+  {
+    title: "BBQ &amp; grillpakketten",
+    text: "Van huisgemaakte lamsburgers tot spiesen &mdash; mals, smaakvol en ambachtelijk bereid.",
+    img: "/images/lamburgers.jpg",
+  },
+  {
+    title: "Feest &amp; catering",
+    text: "Van koud buffet tot volledige receptie &mdash; wij verzorgen uw evenement op maat.",
+    img: "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=700&q=80",
+  },
+];
+
+const shown = variant === "home" ? items.slice(0, 3) : items;
+---
+
+<section id="assortiment" class="assortment">
+  <div class="container">
+    {variant === "home" && (
+      <div class="section-head" data-reveal>
+        <p class="eyebrow">Ons assortiment</p>
+        <h2>Alles voor bij het diner, de barbecue of het feest</h2>
+      </div>
+    )}
+
+    <div class="grid">
+      {shown.map((item, i) => (
+        <article class="card" data-reveal style={`--reveal-delay: ${(i % 3) * 100}ms`}>
+          <div class="card-img">
+            <img src={item.img} alt={item.title} />
+          </div>
+          <h3 set:html={item.title} />
+          <p set:html={item.text} />
+        </article>
+      ))}
+    </div>
+
+    {variant === "home" && (
+      <div class="assortment-cta">
+        <a href="/assortiment" class="btn btn-dark">Bekijk volledig assortiment</a>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .assortment {
+    background: var(--color-white);
+  }
+
+  .section-head {
+    max-width: 640px;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+  }
+
+  .section-head h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .card {
+    position: relative;
+    background: var(--color-cream);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  }
+
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--color-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+    z-index: 1;
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 24px 40px rgba(28, 23, 20, 0.14);
+  }
+
+  .card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card-img {
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .card:hover .card-img img {
+    transform: scale(1.06);
+  }
+
+  .card h3 {
+    font-size: 1.2rem;
+    padding: 1.5rem 1.5rem 0.5rem;
+  }
+
+  .card p {
+    padding: 0 1.5rem 1.5rem;
+    color: var(--color-charcoal-soft);
+    font-size: 0.92rem;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .assortment-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+</style>

@@ -1,0 +1,129 @@
+---
+import SocialLinks from "./SocialLinks.astro";
+
+interface Props {
+  variant?: "home" | "page";
+}
+
+const { variant = "page" } = Astro.props;
+---
+
+<section id="contact" class="contact">
+  <div class="container contact-grid">
+    <div class="contact-info" data-reveal>
+      {variant === "home" && (
+        <>
+          <p class="eyebrow eyebrow-light">Contact</p>
+          <h2>Kom langs of neem contact op</h2>
+          <p class="lead">
+            We helpen u graag verder, of het nu gaat om een dagelijkse
+            boodschap of een uitgebreide bestelling voor uw feest.
+          </p>
+        </>
+      )}
+
+      <dl>
+        <div>
+          <dt>Adres</dt>
+          <dd>Steenweg 147, 3890 Gingelom</dd>
+        </div>
+        <div>
+          <dt>Telefoon</dt>
+          <dd><a href="tel:+3211881185">011 88 11 85</a></dd>
+        </div>
+        <div>
+          <dt>Volg ons</dt>
+          <dd>
+            <SocialLinks variant="dark" />
+          </dd>
+        </div>
+      </dl>
+
+      <a href="tel:+3211881185" class="btn btn-primary">Bel 011 88 11 85</a>
+    </div>
+
+    <div class="contact-map" data-reveal style="--reveal-delay: 120ms">
+      <iframe
+        title="Locatie Bronckaers Meat and More"
+        src="https://www.google.com/maps?q=Steenweg+147,+3890+Gingelom&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    background: var(--color-charcoal);
+    color: var(--color-cream);
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(2.5rem, 6vw, 5rem);
+    align-items: center;
+  }
+
+  .eyebrow-light {
+    color: var(--color-gold-light);
+  }
+
+  h2 {
+    color: var(--color-white);
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.2vw, 2.4rem);
+    max-width: 16ch;
+  }
+
+  .lead {
+    color: var(--color-cream-soft);
+    margin-top: 1.25rem;
+    max-width: 46ch;
+  }
+
+  dl {
+    margin: 2.25rem 0 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  dt {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-gold-light);
+  }
+
+  dd {
+    margin: 0.3rem 0 0;
+    font-size: 1.05rem;
+  }
+
+  dd a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .contact-map {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid rgba(201, 161, 90, 0.25);
+  }
+
+  .contact-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    filter: grayscale(0.3) contrast(1.05);
+  }
+
+  @media (max-width: 900px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

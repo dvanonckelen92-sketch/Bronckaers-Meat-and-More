@@ -1,0 +1,91 @@
+---
+const steps = [
+  {
+    n: "01",
+    title: "Contacteer ons",
+    text: "Bel, mail of kom langs met uw datum, aantal gasten en wensen.",
+  },
+  {
+    n: "02",
+    title: "Menu op maat",
+    text: "Samen stellen we een aanbod samen dat past bij uw budget en gelegenheid.",
+  },
+  {
+    n: "03",
+    title: "Vers bereid &amp; geleverd",
+    text: "Op de dag zelf bereiden wij alles vers &mdash; af te halen of te leveren.",
+  },
+];
+---
+
+<section class="steps">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Hoe gaat het in zijn werk?</p>
+      <h2>In drie stappen naar een geslaagd feest</h2>
+    </div>
+
+    <div class="steps-grid">
+      {steps.map((s, i) => (
+        <div class="step" data-reveal style={`--reveal-delay: ${i * 120}ms`}>
+          <span class="step-number">{s.n}</span>
+          <h3 set:html={s.title} />
+          <p set:html={s.text} />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .steps {
+    background: var(--color-white);
+  }
+
+  .section-head {
+    max-width: 640px;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+  }
+
+  .section-head h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+  }
+
+  .step {
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .step-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    color: var(--color-gold);
+    margin-bottom: 0.75rem;
+  }
+
+  .step h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .step p {
+    color: var(--color-charcoal-soft);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 800px) {
+    .steps-grid {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+  }
+</style>

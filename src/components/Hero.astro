@@ -1,0 +1,251 @@
+---
+import HeritageSeal from "./HeritageSeal.astro";
+---
+
+<section class="hero">
+  <div
+    class="hero-bg"
+    role="img"
+    aria-label="Vers vlees uitgestald in de toonbank"
+    style="background-image: url('https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&w=1800&q=80')"
+  >
+    <div class="hero-overlay"></div>
+  </div>
+
+  <div class="hero-seal">
+    <HeritageSeal size={128} />
+  </div>
+
+  <div class="container hero-content">
+    <p class="eyebrow eyebrow-light" data-reveal>Sinds 1962 &middot; Gingelom</p>
+    <h1 data-reveal style="--reveal-delay: 90ms">Ambacht proef je.<br />Drie generaties lang.</h1>
+    <p class="hero-lead" data-reveal style="--reveal-delay: 180ms">
+      Bronckaers Meat &amp; More is de vertrouwde slagerij, bakkerij en traiteur
+      van Gingelom. Vers, eerlijk vlees, versgebakken brood en huisbereide
+      gerechten &mdash; bereid met dezelfde passie als in 1962.
+    </p>
+    <div class="hero-actions" data-reveal style="--reveal-delay: 270ms">
+      <a href="/assortiment" class="btn btn-primary">Ontdek ons assortiment</a>
+      <a href="/contact" class="btn btn-outline">Vind ons</a>
+    </div>
+
+    <div class="hero-meta" data-reveal style="--reveal-delay: 360ms">
+      <div>
+        <span class="hero-meta-number" data-count="60" data-suffix="+">0</span>
+        <span class="hero-meta-label">jaar vakmanschap</span>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <span class="hero-meta-number" data-count="3">0</span>
+        <span class="hero-meta-label">generaties beenhouwers</span>
+      </div>
+      <div class="divider"></div>
+      <div>
+        <span class="hero-meta-number" data-count="100" data-suffix="%">0</span>
+        <span class="hero-meta-label">huisbereid &amp; vers</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span></span>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    color: var(--color-cream);
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 900px) {
+    .hero-bg {
+      background-attachment: fixed;
+    }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(20, 15, 13, 0.94) 0%,
+      rgba(20, 15, 13, 0.78) 42%,
+      rgba(164, 98, 47, 0.5) 100%
+    );
+  }
+
+  .hero-seal {
+    position: absolute;
+    z-index: 2;
+    right: clamp(1.5rem, 5vw, 4rem);
+    bottom: clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .eyebrow-light {
+    color: var(--color-gold-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    color: var(--color-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-lead {
+    font-size: 1.1rem;
+    color: var(--color-cream-soft);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+  }
+
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-number {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--color-gold-light);
+  }
+
+  .hero-meta-label {
+    display: block;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    color: var(--color-cream-soft);
+    margin-top: 0.2rem;
+  }
+
+  .divider {
+    width: 1px;
+    height: 36px;
+    background: rgba(246, 239, 228, 0.25);
+  }
+
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    z-index: 1;
+    transform: translateX(-50%);
+    width: 22px;
+    height: 36px;
+    border: 1px solid rgba(246, 239, 228, 0.4);
+    border-radius: 12px;
+  }
+
+  .scroll-cue span {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    background: var(--color-gold-light);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    animation: scroll-cue-move 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scroll-cue-move {
+    0% {
+      opacity: 1;
+      top: 6px;
+    }
+    70% {
+      opacity: 0;
+      top: 20px;
+    }
+    100% {
+      opacity: 0;
+      top: 6px;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-seal {
+      display: none;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .hero {
+      min-height: 100vh;
+    }
+    .scroll-cue {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-cue span {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const counters = document.querySelectorAll<HTMLElement>("[data-count]");
+
+  const animateCounter = (el: HTMLElement) => {
+    const target = parseInt(el.dataset.count || "0", 10);
+    const suffix = el.dataset.suffix || "";
+    const duration = 1400;
+    const start = performance.now();
+
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target) + suffix;
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target as HTMLElement);
+          observer.unobserve(entry.target);
+        }
+      }
+    },
+    { threshold: 0.6 }
+  );
+
+  counters.forEach((el) => observer.observe(el));
+</script>
