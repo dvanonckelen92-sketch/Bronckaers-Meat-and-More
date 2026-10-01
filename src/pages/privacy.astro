@@ -1,0 +1,196 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import { business } from "../data/business";
+
+const a = business.address;
+const updated = "1 oktober 2026";
+---
+
+<Layout
+  title="Privacyverklaring | Bronckaers Meat and More"
+  description="Hoe Bronckaers Meat and More in Gingelom omgaat met uw persoonsgegevens: contactformulier, hosting via Netlify, bewaartermijnen en uw rechten."
+>
+  <PageHero
+    eyebrow="Privacy"
+    title="Privacyverklaring"
+    lead="Welke gegevens we verzamelen via deze website, waarom we dat doen en welke rechten u heeft."
+    image="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=1600&q=80"
+  />
+
+  <section class="privacy">
+    <div class="container privacy-body">
+      <p class="updated">Laatst bijgewerkt: {updated}</p>
+
+      <h2>Wie is verantwoordelijk?</h2>
+      <p>
+        Verantwoordelijke voor de verwerking van uw persoonsgegevens is
+        {business.name}, {a.street}, {a.postalCode} {a.locality}, België.
+      </p>
+      <p>
+        Vragen over privacy? Mail naar
+        <a href={`mailto:${business.email}`}>{business.email}</a> of bel
+        <a href={`tel:${business.phone}`}>{business.phoneDisplay}</a>.
+      </p>
+
+      <h2>Welke gegevens verzamelen we?</h2>
+      <h3>Contactformulier</h3>
+      <p>
+        Wanneer u het contactformulier invult, ontvangen we uw naam,
+        e-mailadres, telefoonnummer (optioneel), het onderwerp en uw bericht.
+        We gebruiken die gegevens alleen om uw vraag te beantwoorden, een
+        offerte op te maken of uw bestelling af te handelen. De rechtsgrond is
+        uw verzoek zelf: we hebben de gegevens nodig om u te kunnen helpen
+        (precontractuele maatregelen, art. 6.1.b AVG).
+      </p>
+
+      <h3>Bezoek aan de website</h3>
+      <p>
+        Bij elk bezoek registreert de server van onze hostingpartner
+        technische gegevens zoals uw IP-adres, het type browser, de opgevraagde
+        pagina en het tijdstip. Dat is nodig om de website veilig en
+        bereikbaar te houden (gerechtvaardigd belang, art. 6.1.f AVG). We
+        gebruiken deze gegevens niet om u te volgen of te profileren.
+      </p>
+
+      <h2>Hosting en formulieren via Netlify</h2>
+      <p>
+        Deze website wordt gehost door Netlify, Inc. (San Francisco, Verenigde
+        Staten). Netlify verwerkt de serverlogs van uw bezoek en slaat de
+        berichten van het contactformulier op via Netlify Forms, waarna ze per
+        e-mail naar ons worden doorgestuurd. Netlify treedt daarbij op als
+        verwerker in onze opdracht.
+      </p>
+      <p>
+        Omdat Netlify gevestigd is in de Verenigde Staten, kunnen uw gegevens
+        buiten de Europese Unie terechtkomen. Netlify is aangesloten bij het
+        EU-U.S. Data Privacy Framework en hanteert daarnaast de
+        modelcontractbepalingen van de Europese Commissie, zodat uw gegevens
+        een passend beschermingsniveau krijgen. Meer info leest u in het
+        <a href="https://www.netlify.com/privacy/" rel="noopener" target="_blank">privacybeleid van Netlify</a>
+        en hun
+        <a href="https://www.netlify.com/gdpr-ccpa/" rel="noopener" target="_blank">GDPR-pagina</a>.
+      </p>
+
+      <h2>Andere diensten op deze website</h2>
+      <ul>
+        <li>
+          <strong>Google Fonts</strong>: de lettertypes worden geladen vanaf
+          servers van Google, waardoor uw IP-adres aan Google wordt doorgegeven.
+          Google Fonts plaatst geen cookies.
+        </li>
+        <li>
+          <strong>Google Maps</strong>: op de contactpagina staat een kaart van
+          Google Maps. Google kan daarbij uw IP-adres verwerken en cookies
+          plaatsen. Zie het
+          <a href="https://policies.google.com/privacy?hl=nl" rel="noopener" target="_blank">privacybeleid van Google</a>.
+        </li>
+        <li>
+          <strong>Unsplash</strong>: een aantal sfeerfoto's wordt geladen vanaf
+          de servers van Unsplash, die daarbij uw IP-adres ontvangt.
+        </li>
+        <li>
+          <strong>Facebook en Instagram</strong>: we linken naar onze pagina's,
+          maar laden geen knoppen of scripts van Meta in. Pas wanneer u op zo'n
+          link klikt, verlaat u onze website.
+        </li>
+      </ul>
+
+      <h2>Cookies</h2>
+      <p>
+        Wij plaatsen zelf geen cookies en gebruiken geen analyse- of
+        advertentietools. De enige cookies die mogelijk worden geplaatst, komen
+        van de ingesloten kaart van Google Maps op de contactpagina.
+      </p>
+
+      <h2>Hoe lang bewaren we uw gegevens?</h2>
+      <p>
+        Berichten via het contactformulier bewaren we zolang dat nodig is om uw
+        vraag of bestelling af te handelen, en daarna maximaal twee jaar.
+        Werden ze onderdeel van een factuur, dan bewaren we ze zolang de wet dat
+        verplicht (tot tien jaar). Serverlogs worden door Netlify automatisch na
+        een korte periode verwijderd.
+      </p>
+
+      <h2>Delen we uw gegevens?</h2>
+      <p>
+        We verkopen uw gegevens nooit en geven ze niet door aan derden voor
+        marketing. Alleen de hierboven genoemde partners verwerken gegevens, en
+        enkel voor zover nodig om deze website te laten werken.
+      </p>
+
+      <h2>Uw rechten</h2>
+      <p>
+        U heeft het recht om uw gegevens in te kijken, te laten verbeteren of
+        te laten verwijderen. U kunt zich ook verzetten tegen de verwerking, de
+        verwerking laten beperken of uw gegevens opvragen in een gangbaar
+        formaat. Stuur daarvoor een mail naar
+        <a href={`mailto:${business.email}`}>{business.email}</a>. We
+        antwoorden binnen een maand.
+      </p>
+      <p>
+        Bent u niet tevreden over hoe we met uw gegevens omgaan, dan kunt u een
+        klacht indienen bij de Gegevensbeschermingsautoriteit, Drukpersstraat
+        35, 1000 Brussel,
+        <a href="https://www.gegevensbeschermingsautoriteit.be" rel="noopener" target="_blank">www.gegevensbeschermingsautoriteit.be</a>.
+      </p>
+
+      <h2>Wijzigingen</h2>
+      <p>
+        We passen deze privacyverklaring aan wanneer onze website of de
+        regelgeving verandert. De datum bovenaan toont wanneer dat voor het
+        laatst gebeurde.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .privacy {
+    background: var(--color-white);
+    padding: 4.5rem 0 5rem;
+  }
+
+  .privacy-body {
+    max-width: 760px;
+  }
+
+  .updated {
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+    font-style: italic;
+  }
+
+  h2 {
+    font-size: clamp(1.4rem, 2.6vw, 1.8rem);
+    margin: 2.5rem 0 0.9rem;
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  p + p {
+    margin-top: 0.9rem;
+  }
+
+  p,
+  li {
+    color: var(--color-charcoal-soft);
+  }
+
+  ul {
+    padding-left: 1.2rem;
+    margin: 0;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  a {
+    color: var(--color-copper);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    overflow-wrap: anywhere;
+  }
+</style>

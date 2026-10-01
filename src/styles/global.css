@@ -120,13 +120,6 @@ img {
   font-weight: 600;
 }
 
-.eyebrow::before {
-  content: "";
-  width: 28px;
-  height: 1px;
-  background: var(--color-gold);
-}
-
 .btn {
   position: relative;
   display: inline-flex;

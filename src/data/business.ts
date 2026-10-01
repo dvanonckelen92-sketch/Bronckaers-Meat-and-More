@@ -46,4 +46,5 @@ export const pages = [
   { path: "/traiteur/", name: "Traiteur & Catering" },
   { path: "/over-ons/", name: "Over ons" },
   { path: "/contact/", name: "Contact" },
+  { path: "/privacy/", name: "Privacyverklaring" },
 ];
