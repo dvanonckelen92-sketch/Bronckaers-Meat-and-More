@@ -9,6 +9,7 @@ export const business = {
   phone: "+3211881185",
   phoneDisplay: "011 88 11 85",
   email: "slagerij@frankbronckaers.net",
+  vatId: "BE0791.521.681",
   address: {
     street: "Steenweg 147",
     postalCode: "3890",
