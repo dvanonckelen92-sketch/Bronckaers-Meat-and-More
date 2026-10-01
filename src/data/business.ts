@@ -9,6 +9,7 @@ export const business = {
   phone: "+3211881185",
   phoneDisplay: "011 88 11 85",
   email: "slagerij@frankbronckaers.net",
+  vatId: "BE0791.521.681",
   address: {
     street: "Steenweg 147",
     postalCode: "3890",
@@ -46,4 +47,5 @@ export const pages = [
   { path: "/traiteur/", name: "Traiteur & Catering" },
   { path: "/over-ons/", name: "Over ons" },
   { path: "/contact/", name: "Contact" },
+  { path: "/privacy/", name: "Privacyverklaring" },
 ];

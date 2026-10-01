@@ -15,6 +15,7 @@ export const GET: APIRoute = ({ site }) => {
 - Telefoon: ${business.phoneDisplay}
 - E-mail: ${business.email}
 - Opgericht: ${business.foundingDate}
+- Ondernemingsnummer: ${business.vatId}
 
 ## Openingsuren
 
