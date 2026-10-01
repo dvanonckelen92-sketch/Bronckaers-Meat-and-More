@@ -8,7 +8,7 @@ export const business = {
   foundingDate: "1962",
   phone: "+3211881185",
   phoneDisplay: "011 88 11 85",
-  email: "info@bronckaersmeatandmore.be",
+  email: "slagerij@frankbronckaers.net",
   address: {
     street: "Steenweg 147",
     postalCode: "3890",
