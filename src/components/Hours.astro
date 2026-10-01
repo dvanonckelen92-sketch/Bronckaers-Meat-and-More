@@ -1,13 +1,5 @@
 ---
-const hours = [
-  { day: "Maandag", time: "Gesloten" },
-  { day: "Dinsdag", time: "08:00 – 12:30 & 13:30 – 18:30" },
-  { day: "Woensdag", time: "08:00 – 12:30 & 13:30 – 18:30" },
-  { day: "Donderdag", time: "08:00 – 12:30 & 13:30 – 18:30" },
-  { day: "Vrijdag", time: "08:00 – 12:30 & 13:30 – 18:30" },
-  { day: "Zaterdag", time: "08:00 – 18:00" },
-  { day: "Zondag", time: "08:00 – 12:30" },
-];
+import { openingHours, formatRanges } from "../data/business";
 ---
 
 <section id="openingsuren" class="hours">
@@ -22,20 +14,20 @@ const hours = [
       </div>
       <h2>Wanneer u bij ons terecht kan</h2>
       <ul>
-        {hours.map((h, i) => (
-          <li data-day-index={i}>
+        {openingHours.map((h, i) => (
+          <li data-day-index={i} data-ranges={JSON.stringify(h.ranges)}>
             <span>{h.day}</span>
-            <span class="time">{h.time}</span>
+            <span class="time">{formatRanges(h.ranges)}</span>
           </li>
         ))}
       </ul>
-      <p class="hours-note">* Feestdagen kunnen afwijken — bel gerust om te bevestigen.</p>
+      <p class="hours-note">* Feestdagen kunnen afwijken. Bel gerust om te bevestigen.</p>
     </div>
 
     <div class="hours-image" data-reveal style="--reveal-delay: 120ms">
       <img
-        src="https://images.unsplash.com/photo-1590779033100-9f60a05a013d?auto=format&fit=crop&w=900&q=80"
-        alt="Toonbank van de slagerij en bakkerij"
+        src="/images/toog-vers-vlees.jpg"
+        alt="Vers vlees in onze toog"
       />
     </div>
   </div>
@@ -163,22 +155,19 @@ const hours = [
 </style>
 
 <script>
-  // Schedule ranges in minutes-since-midnight, indexed Maandag=0 ... Zondag=6
-  const schedule: number[][][] = [
-    [],
-    [[480, 750], [810, 1110]],
-    [[480, 750], [810, 1110]],
-    [[480, 750], [810, 1110]],
-    [[480, 750], [810, 1110]],
-    [[480, 1080]],
-    [[480, 750]],
-  ];
-
   const now = new Date();
   const dayIndex = (now.getDay() + 6) % 7;
   const minutesNow = now.getHours() * 60 + now.getMinutes();
 
-  const todayRanges = schedule[dayIndex];
+  // Uren komen uit src/data/business.ts via data-ranges, Maandag=0 ... Zondag=6
+  const toMinutes = (t: string) => {
+    const [h, m] = t.split(":").map(Number);
+    return h * 60 + m;
+  };
+  const todayLi = document.querySelector<HTMLElement>(`[data-day-index="${dayIndex}"]`);
+  const todayRanges: number[][] = JSON.parse(todayLi?.dataset.ranges ?? "[]").map(
+    ([open, close]: string[]) => [toMinutes(open), toMinutes(close)]
+  );
   const isOpen = todayRanges.some(([start, end]) => minutesNow >= start && minutesNow < end);
 
   const statusEl = document.getElementById("open-status");
@@ -190,13 +179,12 @@ const hours = [
       const closingRange = todayRanges.find(([start, end]) => minutesNow >= start && minutesNow < end);
       const closeH = Math.floor(closingRange![1] / 60);
       const closeM = String(closingRange![1] % 60).padStart(2, "0");
-      labelEl.textContent = `Nu open — tot ${closeH}:${closeM}`;
+      labelEl.textContent = `Nu open tot ${closeH}:${closeM}`;
     } else {
       statusEl.classList.add("is-closed");
       labelEl.textContent = "Nu gesloten";
     }
   }
 
-  const todayLi = document.querySelector(`[data-day-index="${dayIndex}"]`);
   todayLi?.classList.add("is-today");
 </script>

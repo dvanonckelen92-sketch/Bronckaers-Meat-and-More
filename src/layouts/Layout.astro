@@ -3,6 +3,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Marquee from "../components/Marquee.astro";
 import Footer from "../components/Footer.astro";
+import { business, openingHours, pages } from "../data/business";
 
 interface Props {
   title?: string;
@@ -10,9 +11,71 @@ interface Props {
 }
 
 const {
-  title = "Bronckaers Meat and More — Ambachtelijke slagerij, bakkerij & traiteur in Gingelom",
+  title = "Bronckaers Meat and More | Ambachtelijke slagerij, bakkerij & traiteur in Gingelom",
   description = "Al sinds 1962 uw ambachtelijke slagerij en bakkerij in Gingelom. Drie generaties vakmanschap, vers vlees, vers brood, huisbereide traiteurgerechten en catering op maat.",
 } = Astro.props;
+
+const pathname = Astro.url.pathname.endsWith("/") ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonical = new URL(pathname, Astro.site).href;
+const abs = (path: string) => new URL(path, Astro.site).href;
+const businessId = abs("/#business");
+
+const currentPage = pages.find((p) => p.path === pathname);
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Store", "Bakery"],
+      "@id": businessId,
+      name: business.name,
+      description: business.description,
+      url: abs("/"),
+      logo: abs(business.logo),
+      image: abs(business.image),
+      telephone: business.phone,
+      email: business.email,
+      foundingDate: business.foundingDate,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: business.address.street,
+        postalCode: business.address.postalCode,
+        addressLocality: business.address.locality,
+        addressRegion: business.address.region,
+        addressCountry: business.address.country,
+      },
+      openingHoursSpecification: openingHours.flatMap((d) =>
+        d.ranges.map(([opens, closes]) => ({
+          "@type": "OpeningHoursSpecification",
+          dayOfWeek: `https://schema.org/${d.schemaDay}`,
+          opens,
+          closes,
+        }))
+      ),
+      sameAs: business.sameAs,
+    },
+    {
+      "@type": "WebPage",
+      "@id": `${canonical}#webpage`,
+      url: canonical,
+      name: title,
+      description,
+      inLanguage: "nl-BE",
+      about: { "@id": businessId },
+    },
+    ...(currentPage && currentPage.path !== "/"
+      ? [
+          {
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: abs("/") },
+              { "@type": "ListItem", position: 2, name: currentPage.name, item: canonical },
+            ],
+          },
+        ]
+      : []),
+  ],
+};
 ---
 
 <!doctype html>
@@ -28,7 +91,14 @@ const {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/images/banner.jpg" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={business.name} />
+    <meta property="og:locale" content="nl_BE" />
+    <meta property="og:image" content={abs(business.image)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

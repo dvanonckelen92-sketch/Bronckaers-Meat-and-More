@@ -1,10 +1,10 @@
 ---
 const links = [
   { href: "/", label: "Home" },
-  { href: "/over-ons", label: "Over ons" },
-  { href: "/assortiment", label: "Assortiment" },
-  { href: "/traiteur", label: "Traiteur" },
-  { href: "/contact", label: "Contact" },
+  { href: "/over-ons/", label: "Over ons" },
+  { href: "/assortiment/", label: "Assortiment" },
+  { href: "/traiteur/", label: "Traiteur" },
+  { href: "/contact/", label: "Contact" },
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -25,7 +25,7 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
     <nav class="nav-desktop" aria-label="Hoofdnavigatie">
       {links.map((link) => {
         const isActive =
-          link.href === "/" ? currentPath === "/" : currentPath === link.href;
+          link.href === "/" ? currentPath === "/" : currentPath === link.href.replace(/\/$/, "");
         return (
           <a href={link.href} aria-current={isActive ? "page" : undefined} class={isActive ? "active" : ""}>
             {link.label}

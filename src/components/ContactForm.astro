@@ -9,11 +9,23 @@ const CONTACT_EMAIL = "info@bronckaersmeatandmore.be";
       <h2>Stuur ons een bericht</h2>
       <p class="lead">
         Voor een offerte voor uw feest, een vraag over ons assortiment of
-        gewoon een bestelling &mdash; vul het formulier in en wij nemen zo
+        gewoon een bestelling? Vul het formulier in en wij nemen zo
         snel mogelijk contact met u op.
       </p>
 
-      <form id="contact-form" class="form">
+      <form
+        id="contact-form"
+        class="form"
+        name="contact"
+        method="POST"
+        action="/contact/"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p class="hp" aria-hidden="true">
+          <label>Niet invullen <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+        </p>
         <div class="field">
           <label for="name">Naam</label>
           <input type="text" id="name" name="name" required />
@@ -47,9 +59,11 @@ const CONTACT_EMAIL = "info@bronckaersmeatandmore.be";
         <button type="submit" class="btn btn-primary">Verstuur bericht</button>
       </form>
 
+      <p id="form-status" class="form-status" role="status" aria-live="polite" hidden></p>
+
       <p class="form-note">
-        Dit opent uw e-mailprogramma met het bericht klaar om te versturen
-        naar <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Belt u
+        Mailen kan ook rechtstreeks naar
+        <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Belt u
         liever? <a href="tel:+3211881185">011 88 11 85</a>.
       </p>
     </div>
@@ -128,6 +142,20 @@ const CONTACT_EMAIL = "info@bronckaersmeatandmore.be";
     margin-top: 0.5rem;
   }
 
+  .hp {
+    position: absolute;
+    left: -9999px;
+  }
+
+  .form-status {
+    margin-top: 1.5rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius);
+    background: var(--color-cream);
+    border-left: 3px solid var(--color-copper);
+    text-align: left;
+  }
+
   .form-note {
     grid-column: 1 / -1;
     margin-top: 1.75rem;
@@ -150,30 +178,47 @@ const CONTACT_EMAIL = "info@bronckaersmeatandmore.be";
 
 <script define:vars={{ CONTACT_EMAIL }}>
   const form = document.getElementById("contact-form");
+  const status = document.getElementById("form-status");
 
-  form?.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const data = new FormData(form);
-    const name = data.get("name");
-    const email = data.get("email");
+  // Terugval als Netlify Forms niet bereikbaar is: open het e-mailprogramma.
+  const openMailto = (data) => {
     const phone = data.get("phone");
-    const subject = data.get("subject");
-    const message = data.get("message");
-
     const body = [
-      `Naam: ${name}`,
-      `E-mail: ${email}`,
+      `Naam: ${data.get("name")}`,
+      `E-mail: ${data.get("email")}`,
       phone ? `Telefoon: ${phone}` : null,
       "",
-      message,
+      data.get("message"),
     ]
-      .filter(Boolean)
+      .filter((line) => line !== null)
       .join("\n");
 
-    const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
-      `[Website] ${subject}`
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(
+      `[Website] ${data.get("subject")}`
     )}&body=${encodeURIComponent(body)}`;
+  };
 
-    window.location.href = mailto;
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const data = new FormData(form);
+    const button = form.querySelector("button[type=submit]");
+    button.disabled = true;
+
+    try {
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data).toString(),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+
+      form.hidden = true;
+      status.hidden = false;
+      status.textContent =
+        "Bedankt! Uw bericht is goed ontvangen. We nemen zo snel mogelijk contact met u op.";
+    } catch {
+      button.disabled = false;
+      openMailto(data);
+    }
   });
 </script>

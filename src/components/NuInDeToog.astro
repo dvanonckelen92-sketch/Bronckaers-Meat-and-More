@@ -1,0 +1,101 @@
+---
+const dishes = [
+  { name: "Varkensgyro's en rijst", img: "/images/toog-varkensgyros.jpg" },
+  { name: "Kip met zoetzure saus en rijst", img: "/images/toog-kip-zoetzuur.jpg" },
+  { name: "Tongrolletjes met kreeftensaus en puree", img: "/images/toog-tongrolletjes.jpg" },
+  { name: "Spinaziepuree met chypolata", img: "/images/toog-spinaziepuree.jpg" },
+  { name: "Lenghaas, aardappelpuree en fijne groentesaus", img: "/images/toog-lenghaas.jpg" },
+  { name: "Witloof in hespenrolletje en aardappelpuree", img: "/images/toog-witloof.jpg" },
+  { name: "Koude schoteltjes, vers bereid", img: "/images/toog-koude-schotels.jpg" },
+];
+---
+
+<section id="nu-in-de-toog" class="toog">
+  <div class="container">
+    <div class="toog-head" data-reveal>
+      <p class="eyebrow">Nu in de toog</p>
+      <h2>Elke week een nieuwe selectie</h2>
+      <p class="toog-lead">
+        Dagvers bereid door onszelf, klaar om mee te nemen en enkel op te
+        warmen. Ons aanbod wisselt wekelijks. Volg ons op sociale media
+        voor het actuele menu.
+      </p>
+    </div>
+
+    <div class="toog-row" data-reveal style="--reveal-delay: 100ms">
+      {dishes.map((d) => (
+        <figure class="toog-card">
+          <img src={d.img} alt={d.name} loading="lazy" />
+          <figcaption>{d.name}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .toog {
+    background: var(--color-white);
+  }
+
+  .toog-head {
+    max-width: 640px;
+    margin: 0 auto 2.75rem;
+    text-align: center;
+  }
+
+  .toog-head h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  }
+
+  .toog-lead {
+    margin-top: 1rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  .toog-row {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    padding: 0.25rem 0.25rem 1rem;
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-gold) var(--color-cream);
+  }
+
+  .toog-card {
+    flex: 0 0 auto;
+    width: 240px;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+
+  .toog-card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: 0 14px 28px rgba(28, 23, 20, 0.14);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .toog-card:hover img {
+    transform: translateY(-4px);
+  }
+
+  .toog-card figcaption {
+    margin-top: 0.85rem;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.98rem;
+    color: var(--color-charcoal);
+    line-height: 1.35;
+  }
+
+  @media (max-width: 700px) {
+    .toog-card {
+      width: 200px;
+    }
+  }
+</style>

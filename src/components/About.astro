@@ -9,7 +9,7 @@ const { variant = "full" } = Astro.props;
 
 const milestones = [
   { year: "1962", text: "Georges Bronckaers opent de slagerij en bakkerij in Gingelom." },
-  { year: "1990's", text: "Zoon Frank neemt de zaak over en breidt het traiteuraanbod uit." },
+  { year: "Jaren '90", text: "Zoon Frank neemt de zaak over en breidt het traiteuraanbod uit." },
   { year: "2024", text: "Volledig vernieuwde zaak, derde generatie aan het roer." },
 ];
 ---
@@ -38,12 +38,12 @@ const milestones = [
       <p class="eyebrow" data-reveal>Ons verhaal</p>
       <h2 data-reveal style="--reveal-delay: 80ms">Familiebedrijf, van generatie op generatie</h2>
       <p class="about-text" data-reveal style="--reveal-delay: 160ms">
-        Sinds 1962 staat de naam Bronckaers in Gingelom garant voor eerlijk,
-        ambachtelijk vakmanschap. Wat begon als een kleine buurtslagerij en
+        Sinds 1962 staat de naam Bronckaers in Gingelom voor eerlijk vlees
+        en vers brood. Wat begon als een kleine buurtslagerij en
         bakkerij van Georges Bronckaers, groeide via zijn zoon Frank uit tot
         een begrip in de streek. Vandaag zet de derde generatie de traditie
-        voort in een volledig vernieuwde zaak &mdash; met dezelfde passie
-        voor kwaliteit, maar met een frisse, hedendaagse blik.
+        voort in een volledig vernieuwde zaak, met dezelfde
+        zorg voor kwaliteit en een frisse blik.
       </p>
       {variant === "full" && (
         <p class="about-text" data-reveal style="--reveal-delay: 240ms">
@@ -64,7 +64,7 @@ const milestones = [
           ))}
         </ul>
       ) : (
-        <a href="/over-ons" class="btn btn-primary about-cta" data-reveal style="--reveal-delay: 320ms">
+        <a href="/over-ons/" class="btn btn-primary about-cta" data-reveal style="--reveal-delay: 320ms">
           Ontdek ons volledig verhaal
         </a>
       )}
