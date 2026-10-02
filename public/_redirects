@@ -1,0 +1,2 @@
+# Het standaardadres van Netlify doorsturen naar het eigen domein
+https://bronckaers-meat-and-more.netlify.app/*  https://bronckaers-meat-and-more.be/:splat  301!
