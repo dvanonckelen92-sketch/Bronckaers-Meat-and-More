@@ -1,41 +1,42 @@
 ---
-// Lopende actie. Pas `until` aan (of haal <Promo /> weg) bij een nieuwe actie.
-// Na deze datum verdwijnt het blok: bij de volgende build, en in de browser
+// Blok voor een lopende actie; de tekst komt via de slot.
+// Na `until` verdwijnt het blok: bij de volgende build, en in de browser
 // meteen via het script onderaan voor wie een oudere build te zien krijgt.
-const promo = {
-  until: "2026-10-11T23:59:59+02:00",
-  untilLabel: "zondag 11 oktober",
-  img: "/images/promo-steak-friet",
-};
+interface Props {
+  id: string;
+  until: string;
+  eyebrow: string;
+  title: string;
+  img: { src: string; srcset?: string; width: number; height: number; alt: string };
+  reverse?: boolean;
+}
 
-const expired = Date.now() > Date.parse(promo.until);
+const { id, until, eyebrow, title, img, reverse = false } = Astro.props;
+
+const expired = Date.now() > Date.parse(until);
 ---
 
 {!expired && (
-  <section id="actie" class="promo" data-until={promo.until}>
+  <section id={id} class:list={["promo", { "promo-alt": reverse }]} data-until={until}>
     <div class="container promo-grid">
       <div class="promo-image" data-reveal>
         <img
-          src={`${promo.img}-640.webp`}
-          srcset={`${promo.img}-640.webp 640w, ${promo.img}-1000.webp 1000w`}
-          sizes="(max-width: 860px) 100vw, 520px"
-          width="1000"
-          height="1000"
-          alt="Gebakken steak met frietjes, champignonsaus en pepersaus: affiche Week van de Steak-friet"
+          src={img.src}
+          srcset={img.srcset}
+          sizes={img.srcset ? "(max-width: 860px) 100vw, 520px" : undefined}
+          width={img.width}
+          height={img.height}
+          alt={img.alt}
           loading="lazy"
         />
       </div>
 
       <div class="promo-content">
-        <p class="eyebrow" data-reveal>Actie tot {promo.untilLabel}</p>
-        <h2 data-reveal style="--reveal-delay: 80ms">Week van de steak-friet</h2>
-        <p class="promo-offer" data-reveal style="--reveal-delay: 160ms">
-          Koop twee steaks en u krijgt er <strong>gratis een potje huisgemaakte
-          champignonsaus of pepersaus</strong> bij.
-        </p>
-        <a href="/contact/" class="btn btn-primary" data-reveal style="--reveal-delay: 240ms">
-          Openingsuren &amp; adres
-        </a>
+        <p class="eyebrow" data-reveal>{eyebrow}</p>
+        <h2 data-reveal style="--reveal-delay: 80ms" set:html={title} />
+        <div data-reveal style="--reveal-delay: 160ms">
+          <slot />
+        </div>
       </div>
     </div>
   </section>
@@ -46,11 +47,23 @@ const expired = Date.now() > Date.parse(promo.until);
     background: var(--color-cream);
   }
 
+  .promo-alt {
+    background: var(--color-white);
+  }
+
   .promo-grid {
     display: grid;
     grid-template-columns: minmax(0, 520px) 1fr;
     gap: clamp(2rem, 5vw, 4.5rem);
     align-items: center;
+  }
+
+  .promo-alt .promo-grid {
+    grid-template-columns: 1fr minmax(0, 440px);
+  }
+
+  .promo-alt .promo-image {
+    order: 1;
   }
 
   .promo-image img {
@@ -66,27 +79,46 @@ const expired = Date.now() > Date.parse(promo.until);
     font-size: clamp(1.9rem, 3.5vw, 2.6rem);
   }
 
-  .promo-offer {
+  .promo-content :global(.promo-offer) {
     margin: 1.1rem 0 2rem;
     font-size: 1.15rem;
     color: var(--color-charcoal);
   }
 
-  .promo-offer strong {
+  .promo-content :global(.promo-offer strong) {
     color: var(--color-copper-dark);
   }
 
+  .promo-content :global(.promo-terms) {
+    margin: -0.75rem 0 2rem;
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  .promo-content :global(.promo-terms a) {
+    color: inherit;
+    text-decoration: underline;
+  }
+
   @media (max-width: 860px) {
-    .promo-grid {
+    .promo-grid,
+    .promo-alt .promo-grid {
       grid-template-columns: 1fr;
+    }
+    .promo-alt .promo-image {
+      order: 0;
     }
     .promo-image {
       max-width: 520px;
+    }
+    .promo-alt .promo-image {
+      max-width: 440px;
     }
   }
 </style>
 
 <script>
-  const promo = document.querySelector<HTMLElement>(".promo[data-until]");
-  if (promo && Date.now() > Date.parse(promo.dataset.until || "")) promo.remove();
+  document.querySelectorAll<HTMLElement>(".promo[data-until]").forEach((promo) => {
+    if (Date.now() > Date.parse(promo.dataset.until || "")) promo.remove();
+  });
 </script>

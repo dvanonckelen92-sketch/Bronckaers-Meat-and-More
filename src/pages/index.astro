@@ -12,7 +12,51 @@ import Hours from "../components/Hours.astro";
 
 <Layout>
   <Hero />
-  <Promo />
+  <Promo
+    id="actie"
+    until="2026-10-11T23:59:59+02:00"
+    eyebrow="Actie tot zondag 11 oktober"
+    title="Week van de steak-friet"
+    img={{
+      src: "/images/promo-steak-friet-640.webp",
+      srcset: "/images/promo-steak-friet-640.webp 640w, /images/promo-steak-friet-1000.webp 1000w",
+      width: 1000,
+      height: 1000,
+      alt: "Gebakken steak met frietjes, champignonsaus en pepersaus: affiche Week van de Steak-friet",
+    }}
+  >
+    <p class="promo-offer">
+      Koop twee steaks en u krijgt er <strong>gratis een potje huisgemaakte
+      champignonsaus of pepersaus</strong> bij.
+    </p>
+    <a href="/contact/" class="btn btn-primary">Openingsuren &amp; adres</a>
+  </Promo>
+  <Promo
+    id="spaaractie"
+    until="2026-12-20T23:59:59+01:00"
+    eyebrow="Spaaractie tot 20 december"
+    title="Spaar &amp; geniet bij De Zesbunder"
+    reverse
+    img={{
+      src: "/images/spaaractie-de-zesbunder.webp",
+      width: 560,
+      height: 793,
+      alt: "Affiche Spaar & geniet: spaarkaarten met tien punten, een samenwerking van slagerij Bronckaers en restaurant De Zesbunder",
+    }}
+  >
+    <p class="promo-offer">
+      Per aankoop van 20 euro in onze slagerij krijgt u 1 punt op uw
+      spaarkaart. Met 10 punten en 5 euro krijgt u <strong>een gratis
+      verrassingsmenu in restaurant De Zesbunder</strong>, samen met een
+      betalend verrassingsmenu.
+    </p>
+    <p class="promo-terms">
+      Sparen kan van 1 oktober tot en met 20 december 2026. Uw volle kaart
+      is geldig tot en met 31 maart 2027, altijd voor 1 gratis en 1 betalend
+      verrassingsmenu. Niet op zaterdagavond, zondagmiddag en feestdagen.
+      Reserveren is verplicht via <a href="https://www.dezesbunder.be" rel="nofollow noopener" target="_blank">dezesbunder.be</a>, met de vermelding "actiemenu".
+    </p>
+  </Promo>
   <About variant="home" />
   <Selection />
   <NuInDeToog />

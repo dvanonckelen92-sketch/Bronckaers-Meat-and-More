@@ -8,7 +8,7 @@ interface Props {
 const { variant = "full" } = Astro.props;
 
 const milestones = [
-  { year: "1962", text: "Georges Bronckaers opent de slagerij en bakkerij in Gingelom." },
+  { year: "1962", text: "Georges Bronckaers opent een buurtslagerij in Gingelom." },
   { year: "Jaren '90", text: "Zoon Frank neemt de zaak over en breidt het traiteuraanbod uit." },
   { year: "2024", text: "Volledig vernieuwde zaak, derde generatie aan het roer." },
 ];
@@ -38,12 +38,12 @@ const milestones = [
       <p class="eyebrow" data-reveal>Ons verhaal</p>
       <h2 data-reveal style="--reveal-delay: 80ms">Familiebedrijf, van generatie op generatie</h2>
       <p class="about-text" data-reveal style="--reveal-delay: 160ms">
-        Sinds 1962 staat de naam Bronckaers in Gingelom voor eerlijk vlees
-        en vers brood. Wat begon als een kleine buurtslagerij en
-        bakkerij van Georges Bronckaers, groeide via zijn zoon Frank uit tot
-        een begrip in de streek. Vandaag zet de derde generatie de traditie
-        voort in een volledig vernieuwde zaak, met dezelfde
-        zorg voor kwaliteit en een frisse blik.
+        Sinds 1962 staat de naam Bronckaers in Gingelom voor eerlijk vlees.
+        Wat begon als een kleine buurtslagerij van Georges Bronckaers, groeide
+        via zijn zoon Frank uit tot een begrip in de streek. Vandaag zet de
+        derde generatie de traditie verder in een volledig vernieuwde zaak,
+        met een groter assortiment (slagerij, traiteur en bakkerij) en
+        dezelfde zorg voor kwaliteit en versheid.
       </p>
       {variant === "full" && (
         <p class="about-text" data-reveal style="--reveal-delay: 240ms">

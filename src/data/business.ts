@@ -30,12 +30,12 @@ type Range = [open: string, close: string];
 // Maandag = 0 ... Zondag = 6
 export const openingHours: { day: string; schemaDay: string; ranges: Range[] }[] = [
   { day: "Maandag", schemaDay: "Monday", ranges: [] },
-  { day: "Dinsdag", schemaDay: "Tuesday", ranges: [["08:00", "12:30"], ["13:30", "18:30"]] },
-  { day: "Woensdag", schemaDay: "Wednesday", ranges: [["08:00", "12:30"], ["13:30", "18:30"]] },
-  { day: "Donderdag", schemaDay: "Thursday", ranges: [["08:00", "12:30"], ["13:30", "18:30"]] },
-  { day: "Vrijdag", schemaDay: "Friday", ranges: [["08:00", "12:30"], ["13:30", "18:30"]] },
-  { day: "Zaterdag", schemaDay: "Saturday", ranges: [["08:00", "18:00"]] },
-  { day: "Zondag", schemaDay: "Sunday", ranges: [["08:00", "12:30"]] },
+  { day: "Dinsdag", schemaDay: "Tuesday", ranges: [["08:00", "12:30"], ["13:30", "18:00"]] },
+  { day: "Woensdag", schemaDay: "Wednesday", ranges: [["08:00", "12:30"], ["13:30", "18:00"]] },
+  { day: "Donderdag", schemaDay: "Thursday", ranges: [["08:00", "12:30"], ["13:30", "18:00"]] },
+  { day: "Vrijdag", schemaDay: "Friday", ranges: [["08:00", "12:30"], ["13:30", "18:00"]] },
+  { day: "Zaterdag", schemaDay: "Saturday", ranges: [["08:00", "17:30"]] },
+  { day: "Zondag", schemaDay: "Sunday", ranges: [["08:00", "12:00"]] },
 ];
 
 export const formatRanges = (ranges: Range[]) =>
