@@ -1,0 +1,92 @@
+---
+// Lopende actie. Pas `until` aan (of haal <Promo /> weg) bij een nieuwe actie.
+// Na deze datum verdwijnt het blok: bij de volgende build, en in de browser
+// meteen via het script onderaan voor wie een oudere build te zien krijgt.
+const promo = {
+  until: "2026-10-11T23:59:59+02:00",
+  untilLabel: "zondag 11 oktober",
+  img: "/images/promo-steak-friet",
+};
+
+const expired = Date.now() > Date.parse(promo.until);
+---
+
+{!expired && (
+  <section id="actie" class="promo" data-until={promo.until}>
+    <div class="container promo-grid">
+      <div class="promo-image" data-reveal>
+        <img
+          src={`${promo.img}-640.webp`}
+          srcset={`${promo.img}-640.webp 640w, ${promo.img}-1000.webp 1000w`}
+          sizes="(max-width: 860px) 100vw, 520px"
+          width="1000"
+          height="1000"
+          alt="Gebakken steak met frietjes, champignonsaus en pepersaus: affiche Week van de Steak-friet"
+          loading="lazy"
+        />
+      </div>
+
+      <div class="promo-content">
+        <p class="eyebrow" data-reveal>Actie tot {promo.untilLabel}</p>
+        <h2 data-reveal style="--reveal-delay: 80ms">Week van de steak-friet</h2>
+        <p class="promo-offer" data-reveal style="--reveal-delay: 160ms">
+          Koop twee steaks en u krijgt er <strong>gratis een potje huisgemaakte
+          champignonsaus of pepersaus</strong> bij.
+        </p>
+        <a href="/contact/" class="btn btn-primary" data-reveal style="--reveal-delay: 240ms">
+          Openingsuren &amp; adres
+        </a>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .promo {
+    background: var(--color-cream);
+  }
+
+  .promo-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 520px) 1fr;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+  }
+
+  .promo-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+    box-shadow: 0 18px 36px rgba(28, 23, 20, 0.18);
+  }
+
+  .promo-content h2 {
+    margin-top: 0.75rem;
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  }
+
+  .promo-offer {
+    margin: 1.1rem 0 2rem;
+    font-size: 1.15rem;
+    color: var(--color-charcoal);
+  }
+
+  .promo-offer strong {
+    color: var(--color-copper-dark);
+  }
+
+  @media (max-width: 860px) {
+    .promo-grid {
+      grid-template-columns: 1fr;
+    }
+    .promo-image {
+      max-width: 520px;
+    }
+  }
+</style>
+
+<script>
+  const promo = document.querySelector<HTMLElement>(".promo[data-until]");
+  if (promo && Date.now() > Date.parse(promo.dataset.until || "")) promo.remove();
+</script>
