@@ -1,0 +1,118 @@
+---
+const photos = [
+  {
+    name: "zalmschotel-tomaat-garnaal",
+    width: 640,
+    height: 853,
+    alt: "Koude schotel met gerookte zalm, komkommer en tomaat gevuld met garnalen",
+  },
+  {
+    name: "kippenschotel-vleeswaren",
+    width: 640,
+    height: 480,
+    alt: "Schotel met kippenboutjes op gemengde sla, kalkoenfilet en rosbief",
+  },
+  {
+    name: "buffet-groenten-sauzen",
+    width: 640,
+    height: 853,
+    alt: "Koud buffet met eitjes, wortel, boontjes, rijst en pasta, met sauzen en rode kool apart",
+  },
+  {
+    name: "aardappelsalade-buffet",
+    width: 640,
+    height: 853,
+    alt: "Krieltjes met peterselie en kleurige pasta op een koud buffet",
+  },
+  {
+    name: "penne-kip-huisgemaakte-saus",
+    width: 640,
+    height: 853,
+    alt: "Huisgemaakte saus wordt over penne met kip geschept",
+  },
+  {
+    name: "koud-buffet-traiteur",
+    width: 640,
+    height: 627,
+    alt: "Koud buffet en gemengde sla met tomaat, van boven gezien",
+  },
+];
+---
+
+<section class="traiteur-gallery">
+  <div class="container">
+    <div class="section-head" data-reveal>
+      <p class="eyebrow">Uit ons atelier</p>
+      <h2>Zo ziet een schotel er bij ons uit</h2>
+      <p>Alles wordt op de dag zelf bereid en geschikt, zoals op deze foto's.</p>
+    </div>
+
+    <div class="photo-grid">
+      {photos.map((p, i) => (
+        <figure class="photo" data-reveal style={`--reveal-delay: ${(i % 3) * 90}ms`}>
+          <img
+            src={`/images/${p.name}-640.webp`}
+            srcset={`/images/${p.name}-640.webp 640w, /images/${p.name}-1000.webp 1000w`}
+            sizes="(max-width: 600px) 50vw, 380px"
+            width={p.width}
+            height={p.height}
+            alt={p.alt}
+            loading="lazy"
+          />
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .traiteur-gallery {
+    background: var(--color-white);
+  }
+
+  .section-head {
+    max-width: 640px;
+    margin: 0 auto 3rem;
+    text-align: center;
+  }
+
+  .section-head h2 {
+    margin-top: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: clamp(1.9rem, 3.5vw, 2.5rem);
+  }
+
+  .section-head p:last-child {
+    color: var(--color-charcoal-soft);
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+
+  .photo {
+    margin: 0;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .photo:hover img {
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 600px) {
+    .photo-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
