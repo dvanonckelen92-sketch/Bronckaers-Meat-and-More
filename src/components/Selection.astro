@@ -2,7 +2,8 @@
 const categories = [
   {
     title: "Ambachtelijke slagerij",
-    img: "https://images.unsplash.com/photo-1625604086988-6e41981275fa?auto=format&fit=crop&w=900&q=80",
+    img: "/images/bloedworsten-huisgemaakt-640.webp",
+    alt: "Rijen huisgemaakte bloedworsten",
   },
   {
     title: "Bakkerij",
@@ -11,7 +12,8 @@ const categories = [
   },
   {
     title: "Traiteur &amp; huisbereid",
-    img: "https://images.unsplash.com/photo-1689860892307-7db54ab276ba?auto=format&fit=crop&w=800&q=80",
+    img: "/images/gerookte-zalm-snijden-640.webp",
+    alt: "Gerookte zalm wordt met de hand in blokjes gesneden",
   },
   {
     title: "Gerookte specialiteiten",
@@ -49,7 +51,7 @@ const categories = [
         >
           <img
             src={c.img}
-            alt={c.title.replace(/&amp;/g, "&")}
+            alt={c.alt ?? c.title.replace(/&amp;/g, "&")}
             loading="lazy"
             style={c.pos ? `object-position: ${c.pos}` : undefined}
           />

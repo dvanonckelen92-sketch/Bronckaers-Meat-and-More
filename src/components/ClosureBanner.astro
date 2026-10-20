@@ -1,0 +1,49 @@
+---
+// Balk boven de header zolang er een verlof gepland of bezig is.
+// Na `until` verdwijnt hij: bij de volgende build, en in de browser
+// meteen via het script onderaan voor wie een oudere build te zien krijgt.
+import { activeClosures } from "../data/business";
+
+const closure = activeClosures()[0];
+---
+
+{closure && (
+  <aside class="closure-banner" data-until={closure.until}>
+    <div class="container closure-inner">
+      <strong>{closure.title}</strong>
+      <span>{closure.text}</span>
+    </div>
+  </aside>
+)}
+
+<style>
+  .closure-banner {
+    background: var(--color-copper-dark);
+    color: var(--color-cream);
+    font-size: 0.9rem;
+    line-height: 1.45;
+    padding: 0.7rem 0;
+    text-align: center;
+  }
+
+  .closure-inner strong {
+    font-weight: 700;
+    margin-right: 0.4rem;
+  }
+
+  .closure-inner strong::after {
+    content: ":";
+  }
+
+  @media (max-width: 600px) {
+    .closure-banner {
+      font-size: 0.82rem;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".closure-banner[data-until]").forEach((el) => {
+    if (Date.now() > Date.parse(el.dataset.until || "")) el.remove();
+  });
+</script>

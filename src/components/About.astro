@@ -10,7 +10,7 @@ const { variant = "full" } = Astro.props;
 const milestones = [
   { year: "1962", text: "Georges Bronckaers opent een buurtslagerij in Gingelom." },
   { year: "Jaren '90", text: "Zoon Frank neemt de zaak over en breidt het traiteuraanbod uit." },
-  { year: "2024", text: "Volledig vernieuwde zaak, derde generatie aan het roer." },
+  { year: "2024", text: "Kleinzoon Aaron, de derde generatie, opent de volledig vernieuwde zaak." },
 ];
 ---
 
@@ -19,13 +19,21 @@ const milestones = [
     <div class="about-images" data-reveal>
       <img
         class="img-main"
-        src="https://images.unsplash.com/photo-1615937691194-97dbd3f3dc29?auto=format&fit=crop&w=900&q=80"
-        alt="De slagerij en bakkerij van Bronckaers Meat and More"
+        src="/images/team-traiteur-keuken-640.webp"
+        srcset="/images/team-traiteur-keuken-640.webp 640w, /images/team-traiteur-keuken-1000.webp 1000w"
+        sizes="(max-width: 900px) 100vw, 480px"
+        width="640"
+        height="853"
+        alt="Medewerkers vullen in het atelier bakjes met puree en saus voor de traiteurtoog"
+        loading="lazy"
       />
       <img
         class="img-accent"
-        src="https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=600&q=80"
-        alt="Ambachtelijk vlees versnijden"
+        src="/images/team-kaas-snijden-640.webp"
+        width="640"
+        height="853"
+        alt="Een medewerker snijdt kaas aan de snijmachine in de winkel"
+        loading="lazy"
       />
       {variant === "full" && (
         <div class="about-seal">
@@ -40,8 +48,8 @@ const milestones = [
       <p class="about-text" data-reveal style="--reveal-delay: 160ms">
         Sinds 1962 staat de naam Bronckaers in Gingelom voor eerlijk vlees.
         Wat begon als een kleine buurtslagerij van Georges Bronckaers, groeide
-        via zijn zoon Frank uit tot een begrip in de streek. Vandaag zet de
-        derde generatie de traditie verder in een volledig vernieuwde zaak,
+        via zijn zoon Frank uit tot een begrip in de streek. Vandaag zet Aaron,
+        de derde generatie, de traditie verder in een volledig vernieuwde zaak,
         met een groter assortiment (slagerij, traiteur en bakkerij) en
         dezelfde zorg voor kwaliteit en versheid.
       </p>
@@ -86,6 +94,7 @@ const milestones = [
 
   .img-main {
     width: 100%;
+    height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     border-radius: var(--radius);
@@ -93,11 +102,13 @@ const milestones = [
 
   .img-accent {
     position: absolute;
-    width: 55%;
-    aspect-ratio: 1;
+    width: 68%;
+    height: auto;
+    aspect-ratio: 4 / 5;
     object-fit: cover;
-    bottom: -8%;
-    right: -10%;
+    object-position: center 35%;
+    bottom: -20%;
+    right: -12%;
     border: 6px solid var(--color-cream);
     box-shadow: 0 20px 40px rgba(28, 23, 20, 0.25);
     border-radius: var(--radius);
@@ -162,7 +173,13 @@ const milestones = [
       grid-template-columns: 1fr;
     }
     .about-images {
-      margin-bottom: 3.5rem;
+      margin-bottom: 7rem;
+    }
+    .img-main {
+      width: 80%;
+    }
+    .img-accent {
+      right: 0;
     }
     .about-seal {
       display: none;

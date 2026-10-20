@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { business, openingHours, formatRanges, pages } from "../data/business";
+import { business, openingHours, formatRanges, pages, activeClosures } from "../data/business";
 
 // Platte samenvatting voor taalmodellen (https://llmstxt.org),
 // gegenereerd uit dezelfde gegevens als de site zodat ze niet uit de pas lopen.
@@ -22,7 +22,9 @@ export const GET: APIRoute = ({ site }) => {
 ${openingHours.map((d) => `- ${d.day}: ${formatRanges(d.ranges)}`).join("\n")}
 
 Feestdagen kunnen afwijken; bel om te bevestigen.
-
+${activeClosures().map((c) => `
+${c.title}: ${c.text}
+`).join("")}
 ## Pagina's
 
 ${pages.map((p) => `- [${p.name}](${new URL(p.path, site).href})`).join("\n")}

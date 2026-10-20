@@ -1,9 +1,10 @@
 ---
 import "../styles/global.css";
 import Header from "../components/Header.astro";
+import ClosureBanner from "../components/ClosureBanner.astro";
 import Marquee from "../components/Marquee.astro";
 import Footer from "../components/Footer.astro";
-import { business, openingHours, pages } from "../data/business";
+import { business, openingHours, pages, activeClosures } from "../data/business";
 
 interface Props {
   title?: string;
@@ -45,14 +46,19 @@ const jsonLd = {
         addressRegion: business.address.region,
         addressCountry: business.address.country,
       },
-      openingHoursSpecification: openingHours.flatMap((d) =>
-        d.ranges.map(([opens, closes]) => ({
-          "@type": "OpeningHoursSpecification",
-          dayOfWeek: `https://schema.org/${d.schemaDay}`,
-          opens,
-          closes,
-        }))
-      ),
+      openingHoursSpecification: [
+        ...openingHours.flatMap((d) =>
+          d.ranges.map(([opens, closes]) => ({
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: `https://schema.org/${d.schemaDay}`,
+            opens,
+            closes,
+          }))
+        ),
+        ...activeClosures().flatMap((c) =>
+          c.schema.map((s) => ({ "@type": "OpeningHoursSpecification", ...s }))
+        ),
+      ],
       sameAs: business.sameAs,
     },
     {
@@ -109,6 +115,7 @@ const jsonLd = {
     <title>{title}</title>
   </head>
   <body>
+    <ClosureBanner />
     <Header />
     <main>
       <slot />

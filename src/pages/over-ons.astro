@@ -7,13 +7,19 @@ import Values from "../components/Values.astro";
 
 <Layout
   title="Over ons | Bronckaers Meat and More"
-  description="Sinds 1962 de vertrouwde slagerij en bakkerij van Gingelom. Ontdek het verhaal van drie generaties Bronckaers."
+  description="Sinds 1962 de vertrouwde slagerij en bakkerij van Gingelom. Ontdek het verhaal van drie generaties Bronckaers: Georges, Frank en Aaron."
 >
   <PageHero
     eyebrow="Ons verhaal"
     title="Drie generaties vakmanschap"
-    lead="Van Georges, over Frank, tot de derde generatie vandaag. Het ambacht bleef hetzelfde."
+    lead="Van Georges, over Frank, tot Aaron vandaag. Het ambacht bleef hetzelfde."
     image="/images/renovatie.jpg"
+    photo={{
+      src: "/images/team-puree-portioneren-480.webp",
+      width: 480,
+      height: 640,
+      alt: "Aaron, de derde generatie, spuit aardappelpuree in een bakje in het atelier",
+    }}
   />
   <About variant="full" />
   <Values />

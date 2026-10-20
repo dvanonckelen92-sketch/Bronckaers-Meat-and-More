@@ -3,9 +3,9 @@ import SocialLinks from "./SocialLinks.astro";
 
 const photos = [
   "/images/renovatie.jpg",
-  "/images/ham.jpg",
+  { src: "/images/hamvormen-kookkast-640.webp", alt: "Hamvormen in de kookkast van ons atelier" },
   "/images/toog-salades.jpg",
-  "/images/lamburgers.jpg",
+  { src: "/images/boulettes-huisgemaakt-640.webp", alt: "Bakplaten vol huisgemaakte boulettes uit ons atelier" },
   "/images/toog-bakkerij.jpg",
   "/images/toog-kip-zoetzuur.jpg",
 ];
@@ -19,11 +19,14 @@ const photos = [
     </div>
 
     <div class="gallery-grid">
-      {photos.map((src, i) => (
+      {photos.map((p, i) => {
+        const { src, alt } = typeof p === "string" ? { src: p, alt: "Bronckaers Meat and More" } : p;
+        return (
         <div class="gallery-item" data-reveal style={`--reveal-delay: ${(i % 3) * 90}ms`}>
-          <img src={src} alt="Bronckaers Meat and More" loading="lazy" />
+          <img src={src} alt={alt} loading="lazy" />
         </div>
-      ))}
+      );
+      })}
     </div>
 
     <div class="gallery-follow">

@@ -38,7 +38,27 @@ export const openingHours: { day: string; schemaDay: string; ranges: Range[] }[]
   { day: "Zondag", schemaDay: "Sunday", ranges: [["08:00", "12:00"]] },
 ];
 
-export const formatRanges = (ranges: Range[]) =>
+// Verlof en andere sluitingen. `from` en `until` zijn exacte tijdstippen;
+// `schema` geeft de afwijkende uren per datum voor de structured data
+// (opens/closes "00:00" = de hele dag gesloten). Na `until` verdwijnt
+// alles vanzelf van de site.
+export const closures = [
+  {
+    from: "2026-10-31T14:30:00+01:00",
+    until: "2026-11-11T23:59:59+01:00",
+    title: "Wij zijn met verlof",
+    text: "Van zaterdag 31 oktober vanaf 14u30 tot en met woensdag 11 november is de winkel gesloten. Vanaf donderdag 12 november staan we weer voor u klaar.",
+    schema: [
+      { validFrom: "2026-10-31", validThrough: "2026-10-31", opens: "08:00", closes: "14:30" },
+      { validFrom: "2026-11-01", validThrough: "2026-11-11", opens: "00:00", closes: "00:00" },
+    ],
+  },
+];
+
+export const activeClosures = (now = Date.now()) =>
+  closures.filter((c) => now <= Date.parse(c.until));
+
+export const formatRanges =(ranges: Range[]) =>
   ranges.length ? ranges.map(([o, c]) => `${o}-${c}`).join(" & ") : "Gesloten";
 
 export const pages = [

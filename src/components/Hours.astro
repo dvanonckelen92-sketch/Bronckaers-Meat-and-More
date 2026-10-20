@@ -1,5 +1,7 @@
 ---
-import { openingHours, formatRanges } from "../data/business";
+import { openingHours, formatRanges, activeClosures } from "../data/business";
+
+const closures = activeClosures();
 ---
 
 <section id="openingsuren" class="hours">
@@ -7,7 +9,11 @@ import { openingHours, formatRanges } from "../data/business";
     <div class="hours-card" data-reveal>
       <div class="hours-head">
         <p class="eyebrow">Openingsuren</p>
-        <span id="open-status" class="open-status">
+        <span
+          id="open-status"
+          class="open-status"
+          data-closures={JSON.stringify(closures.map(({ from, until }) => ({ from, until })))}
+        >
           <span class="open-dot"></span>
           <span class="open-label">&nbsp;</span>
         </span>
@@ -21,6 +27,11 @@ import { openingHours, formatRanges } from "../data/business";
           </li>
         ))}
       </ul>
+      {closures.map((c) => (
+        <p class="hours-closure" data-until={c.until}>
+          <strong>{c.title}.</strong> {c.text}
+        </p>
+      ))}
       <p class="hours-note">* Feestdagen kunnen afwijken. Bel gerust om te bevestigen.</p>
     </div>
 
@@ -130,6 +141,16 @@ import { openingHours, formatRanges } from "../data/business";
     color: var(--color-copper);
   }
 
+  .hours-closure {
+    margin-top: 1.5rem;
+    padding: 0.9rem 1rem;
+    border-left: 3px solid var(--color-copper);
+    background: rgba(164, 98, 47, 0.08);
+    border-radius: var(--radius);
+    font-size: 0.92rem;
+    color: var(--color-charcoal);
+  }
+
   .hours-note {
     margin-top: 1.25rem;
     font-size: 0.8rem;
@@ -168,23 +189,38 @@ import { openingHours, formatRanges } from "../data/business";
   const todayRanges: number[][] = JSON.parse(todayLi?.dataset.ranges ?? "[]").map(
     ([open, close]: string[]) => [toMinutes(open), toMinutes(close)]
   );
-  const isOpen = todayRanges.some(([start, end]) => minutesNow >= start && minutesNow < end);
-
   const statusEl = document.getElementById("open-status");
   const labelEl = statusEl?.querySelector(".open-label");
+
+  // Verlof: tijdens de sluiting gesloten, en een sluiting die vandaag
+  // begint, haalt het sluitingsuur van vandaag naar voren.
+  const closures: { from: string; until: string }[] = JSON.parse(statusEl?.dataset.closures ?? "[]");
+  const onLeave = closures.some((c) => now >= new Date(c.from) && now <= new Date(c.until));
+  for (const c of closures) {
+    const from = new Date(c.from);
+    if (from.toDateString() !== now.toDateString()) continue;
+    const cut = from.getHours() * 60 + from.getMinutes();
+    todayRanges.forEach((r) => (r[1] = Math.min(r[1], cut)));
+  }
+
+  const closingRange = todayRanges.find(([start, end]) => minutesNow >= start && minutesNow < end);
+  const isOpen = !onLeave && !!closingRange;
 
   if (statusEl && labelEl) {
     if (isOpen) {
       statusEl.classList.add("is-open");
-      const closingRange = todayRanges.find(([start, end]) => minutesNow >= start && minutesNow < end);
       const closeH = Math.floor(closingRange![1] / 60);
       const closeM = String(closingRange![1] % 60).padStart(2, "0");
       labelEl.textContent = `Nu open tot ${closeH}:${closeM}`;
     } else {
       statusEl.classList.add("is-closed");
-      labelEl.textContent = "Nu gesloten";
+      labelEl.textContent = onLeave ? "Gesloten wegens verlof" : "Nu gesloten";
     }
   }
+
+  document.querySelectorAll<HTMLElement>(".hours-closure[data-until]").forEach((el) => {
+    if (now > new Date(el.dataset.until || "")) el.remove();
+  });
 
   todayLi?.classList.add("is-today");
 </script>
