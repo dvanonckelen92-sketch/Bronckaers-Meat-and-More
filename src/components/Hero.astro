@@ -6,8 +6,7 @@ import HeritageSeal from "./HeritageSeal.astro";
   <div
     class="hero-bg"
     role="img"
-    aria-label="Versgesneden stukken rundvlees op een donkere werkbank"
-    style="background-image: url('https://images.unsplash.com/photo-1690983325551-b922137727be?auto=format&fit=crop&w=1800&q=80')"
+    aria-label="Onze toog met huisgemaakte worsten, gebraden kip, spiesen en gerookte specialiteiten"
   >
     <div class="hero-overlay"></div>
   </div>
@@ -66,9 +65,16 @@ import HeritageSeal from "./HeritageSeal.astro";
     position: absolute;
     inset: 0;
     z-index: 0;
+    background-image: url("/images/toog-vers-vlees-1800.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+  }
+
+  @media (max-width: 700px) {
+    .hero-bg {
+      background-image: url("/images/toog-vers-vlees-1000.webp");
+    }
   }
 
   @media (min-width: 900px) {

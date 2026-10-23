@@ -2,12 +2,14 @@
 import SocialLinks from "./SocialLinks.astro";
 
 const photos = [
-  "/images/renovatie.jpg",
+  { src: "/images/renovatie.jpg", alt: "Onze winkel tijdens de verbouwing, met kale muren, ladders en kruiwagens onder het afdak" },
   { src: "/images/hamvormen-kookkast-640.webp", alt: "Hamvormen in de kookkast van ons atelier" },
-  "/images/toog-salades.jpg",
+  { src: "/images/toog-salades.jpg", alt: "Toog vol salades en spreads in zeshoekige schaaltjes, met potten soep erachter" },
   { src: "/images/boulettes-huisgemaakt-640.webp", alt: "Bakplaten vol huisgemaakte boulettes uit ons atelier" },
-  "/images/toog-bakkerij.jpg",
+  { src: "/images/toog-bakkerij.jpg", alt: "Bakkerijtoog met kaastaart, flan, frangipane, abrikozen-kersentaart en koffiekoeken" },
   { src: "/images/gemarineerd-vlees-toog-640.webp", alt: "Schalen met gemarineerde reepjes kip en vlees met paprika en ui in de toog" },
+  { src: "/images/stoofvlees-pot-bovenaanzicht-640.webp", alt: "Stoofvlees met laurier en peterselie in een rode gietijzeren pot" },
+  { src: "/images/steengrillschotel-bovenaanzicht-800.webp", alt: "Steengrillschotel met koteletten, biefstuk, kip, worstjes, gepaneerde stukjes, paprikaspiesjes en kaas" },
 ];
 ---
 
@@ -19,14 +21,11 @@ const photos = [
     </div>
 
     <div class="gallery-grid">
-      {photos.map((p, i) => {
-        const { src, alt } = typeof p === "string" ? { src: p, alt: "Bronckaers Meat and More" } : p;
-        return (
+      {photos.map(({ src, alt }, i) => (
         <div class="gallery-item" data-reveal style={`--reveal-delay: ${(i % 3) * 90}ms`}>
           <img src={src} alt={alt} loading="lazy" />
         </div>
-      );
-      })}
+      ))}
     </div>
 
     <div class="gallery-follow">
@@ -67,19 +66,13 @@ const photos = [
     grid-column: span 3;
     grid-row: span 2;
   }
-  .gallery-item:nth-child(3),
-  .gallery-item:nth-child(4),
-  .gallery-item:nth-child(5),
-  .gallery-item:nth-child(6) {
+  .gallery-item:nth-child(n + 3) {
     grid-column: span 3;
     grid-row: span 2;
   }
 
   @media (min-width: 700px) {
-    .gallery-item:nth-child(3),
-    .gallery-item:nth-child(4),
-    .gallery-item:nth-child(5),
-    .gallery-item:nth-child(6) {
+    .gallery-item:nth-child(n + 3) {
       grid-column: span 2;
     }
   }

@@ -37,8 +37,13 @@ const closures = activeClosures();
 
     <div class="hours-image" data-reveal style="--reveal-delay: 120ms">
       <img
-        src="/images/toog-vers-vlees.jpg"
-        alt="Vers vlees in onze toog"
+        src="/images/gourmetschotel-sauzen-640.webp"
+        srcset="/images/gourmetschotel-sauzen-640.webp 640w, /images/gourmetschotel-sauzen-1000.webp 1000w"
+        sizes="(max-width: 900px) 100vw, 540px"
+        width="640"
+        height="480"
+        alt="Steengrillschotel met koteletten, biefstuk, kip, worstjes, gepaneerde stukjes en kaas"
+        loading="lazy"
       />
     </div>
   </div>
@@ -160,6 +165,7 @@ const closures = activeClosures();
 
   .hours-image img {
     width: 100%;
+    height: auto;
     aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: var(--radius);
