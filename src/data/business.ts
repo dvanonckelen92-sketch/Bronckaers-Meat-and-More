@@ -22,7 +22,8 @@ export const business = {
     "https://www.instagram.com/bronckaersmeatandmore/",
   ],
   logo: "/images/logo.png",
-  image: "/images/banner.jpg",
+  // Winkelfoto's in 16x9, 4x3 en 1x1; de eerste dient ook als og:image
+  images: ["/images/winkel-toog-16x9.webp", "/images/winkel-toog-4x3.webp", "/images/winkel-toog-1x1.webp"],
 };
 
 type Range = [open: string, close: string];
