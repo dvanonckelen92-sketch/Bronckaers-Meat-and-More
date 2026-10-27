@@ -40,6 +40,19 @@ const { variant = "page" } = Astro.props;
       </dl>
 
       <a href="tel:+3211881185" class="btn btn-primary">Bel 011 88 11 85</a>
+
+      <figure class="storefront">
+        <img
+          src="/images/voorgevel-winkel-640.webp"
+          srcset="/images/voorgevel-winkel-640.webp 640w, /images/voorgevel-winkel-1000.webp 1000w"
+          sizes="(max-width: 900px) 100vw, 480px"
+          width="640"
+          height="480"
+          alt="Voorgevel van Bronckaers Meat and More aan de Steenweg in Gingelom, met grote ramen en de naam op de gevel"
+          loading="lazy"
+        />
+        <figcaption>Zo herkent u onze winkel aan de Steenweg 147.</figcaption>
+      </figure>
     </div>
 
     <div class="contact-map" data-reveal style="--reveal-delay: 120ms">
@@ -105,6 +118,23 @@ const { variant = "page" } = Astro.props;
   dd a {
     text-decoration: underline;
     text-underline-offset: 3px;
+  }
+
+  .storefront {
+    margin: 2rem 0 0;
+    max-width: 480px;
+  }
+
+  .storefront img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  .storefront figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-gold-light);
   }
 
   .contact-map {
