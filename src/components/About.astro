@@ -63,14 +63,28 @@ const milestones = [
       )}
 
       {variant === "full" ? (
-        <ul class="milestones" data-reveal style="--reveal-delay: 320ms">
-          {milestones.map((m) => (
-            <li>
-              <span class="year">{m.year}</span>
-              <span class="text">{m.text}</span>
-            </li>
-          ))}
-        </ul>
+        <>
+          <ul class="milestones" data-reveal style="--reveal-delay: 320ms">
+            {milestones.map((m) => (
+              <li>
+                <span class="year">{m.year}</span>
+                <span class="text">{m.text}</span>
+              </li>
+            ))}
+          </ul>
+          <figure class="renovation" data-reveal style="--reveal-delay: 400ms">
+            <img
+              src="/images/winkel-verbouwing-640.webp"
+              srcset="/images/winkel-verbouwing-640.webp 640w, /images/winkel-verbouwing-1000.webp 1000w"
+              sizes="(max-width: 900px) 100vw, 560px"
+              width="640"
+              height="480"
+              alt="Onze winkel tijdens de verbouwing, met kale muren, ladders en kruiwagens onder het afdak"
+              loading="lazy"
+            />
+            <figcaption>De winkel tijdens de verbouwing, voor de heropening.</figcaption>
+          </figure>
+        </>
       ) : (
         <a href="/over-ons/" class="btn btn-primary about-cta" data-reveal style="--reveal-delay: 320ms">
           Ontdek ons volledig verhaal
@@ -161,6 +175,23 @@ const milestones = [
   .text {
     color: var(--color-charcoal-soft);
     font-size: 0.95rem;
+  }
+
+  .renovation {
+    margin: 2rem 0 0;
+    max-width: 560px;
+  }
+
+  .renovation img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+  }
+
+  .renovation figcaption {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
   }
 
   .about-cta {
