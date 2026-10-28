@@ -4,8 +4,8 @@
 export const business = {
   name: "Bronckaers Meat and More",
   description:
-    "Ambachtelijke slagerij, bakkerij en traiteur in Gingelom, sinds 1962. Drie generaties vakmanschap: vers vlees, vers brood, huisbereide traiteurgerechten en catering op maat.",
-  foundingDate: "1962",
+    "Ambachtelijke slagerij, bakkerij en traiteur in Gingelom, sinds 1942. Drie generaties vakmanschap: vers vlees, vers brood, huisbereide traiteurgerechten en catering op maat.",
+  foundingDate: "1942",
   phone: "+3211881185",
   phoneDisplay: "011 88 11 85",
   email: "slagerij@frankbronckaers.net",
