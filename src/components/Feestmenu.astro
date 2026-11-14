@@ -1,0 +1,301 @@
+---
+// Feestmenu's voor de eindejaarsperiode. Na `until` verdwijnt de sectie,
+// net als bij Promo: bij de volgende build en meteen in de browser.
+const until = "2026-12-31T23:59:59+01:00";
+const expired = Date.now() > Date.parse(until);
+
+const menus = [
+  {
+    id: "kerstmenu",
+    title: "Kerstmenu",
+    img: "kerstmenu-2026",
+    alt: "Affiche Kerstmenu van Bronckaers: kreeftenbisque, ravioli met boschampignons en truffel, hertenkalf met bordelaisesaus en ijs, 41 euro per persoon",
+    courses: [
+      "Kreeftenbisque",
+      "Ravioli gevuld met boschampignons en truffel",
+      "Hertenkalf met bordelaisesaus, witloof, spruitjes, gevulde appel en verse kroketten",
+      "IJs van esdoorn en chocoladecrunch",
+    ],
+    price: "€ 41 per persoon",
+    deadline: "Bestellen uiterlijk donderdag 17 december",
+  },
+  {
+    id: "eindejaarsmenu",
+    title: "Eindejaarsmenu",
+    img: "eindejaarsmenu-2026",
+    alt: "Affiche Eindejaarsmenu van Bronckaers: appel-witloofsoep, kabeljauw, kalfstournedos met truffelsaus en ijs, 41 euro per persoon",
+    courses: [
+      "Appel-witloofsoep",
+      "Kabeljauw met puree van wintergroentjes",
+      "Kalfstournedos met truffelsaus, champignon, broccoli, boontjes met spek en verse kroketten",
+      "IJs van ferrero en witte ganache",
+    ],
+    price: "€ 41 per persoon",
+    deadline: "Bestellen uiterlijk zaterdag 26 december",
+  },
+];
+
+const platters = [
+  { name: "Uitgebreid koud buffet", note: "sauzen gratis", price: "€ 30,00" },
+  { name: "Koude groentenschotel", note: "sauzen gratis", price: "€ 7,50" },
+  { name: "Schotel gourmet", note: "350 gr. p.p., sauzen gratis", price: "€ 14,50" },
+  { name: "Schotel fondue", note: "350 gr. p.p., sauzen gratis", price: "€ 14,50" },
+  { name: "Schotel steengrill", note: "350 gr. p.p., sauzen gratis", price: "€ 14,50" },
+  { name: "Kaasschotel", price: "€ 16,00" },
+  { name: "Charcuterieschotel", price: "€ 14,00" },
+  { name: "Borrelhapjes", note: "om op te warmen, per doos van 12 stuks", price: "€ 12,00" },
+];
+
+const src = (name: string) => `/images/${name}-640.webp`;
+const srcset = (name: string) => `/images/${name}-640.webp 640w, /images/${name}-1000.webp 1000w`;
+const full = (name: string) => `/images/${name}-1000.webp`;
+---
+
+{!expired && (
+  <section id="feestmenu" class="feestmenu" data-until={until}>
+    <div class="container">
+      <div class="feest-intro">
+        <a class="flyer flyer-cover" href={full("feestmenu-feestelijk-genieten")} target="_blank" data-reveal>
+          <img
+            src={src("feestmenu-feestelijk-genieten")}
+            srcset={srcset("feestmenu-feestelijk-genieten")}
+            sizes="(max-width: 860px) 80vw, 380px"
+            width="640"
+            height="905"
+            alt="Voorkant van de feestfolder van Bronckaers: Feestelijk genieten, laten we heerlijk tafelen en genieten"
+            loading="lazy"
+          />
+        </a>
+        <div class="feest-intro-text">
+          <p class="eyebrow" data-reveal>Kerst &amp; eindejaar 2026</p>
+          <h2 data-reveal style="--reveal-delay: 80ms">Feestelijk genieten</h2>
+          <p data-reveal style="--reveal-delay: 160ms">
+            Voor de feestdagen maken we twee volledige menu's en een reeks
+            schotels klaar. Alles wordt in ons atelier in Gingelom bereid. U
+            haalt het vers af in de winkel en zet het zo op tafel.
+          </p>
+          <p data-reveal style="--reveal-delay: 160ms">
+            Bestellen kan in de winkel of telefonisch op{" "}
+            <a href="tel:+3211881185">011 88 11 85</a>.
+          </p>
+        </div>
+      </div>
+
+      <div class="menus">
+        {menus.map((m, i) => (
+          <article id={m.id} class="menu-card" data-reveal style={`--reveal-delay: ${i * 90}ms`}>
+            <a class="flyer" href={full(m.img)} target="_blank">
+              <img
+                src={src(m.img)}
+                srcset={srcset(m.img)}
+                sizes="(max-width: 600px) 90vw, 260px"
+                width="640"
+                height="905"
+                alt={m.alt}
+                loading="lazy"
+              />
+            </a>
+            <div class="menu-text">
+              <h3>{m.title}</h3>
+              <ol class="courses">
+                {m.courses.map((c) => <li>{c}</li>)}
+              </ol>
+              <p class="price">{m.price}</p>
+              <p class="deadline">{m.deadline}</p>
+            </div>
+          </article>
+        ))}
+
+        <article id="feestschotels" class="menu-card" data-reveal style="--reveal-delay: 180ms">
+          <a class="flyer" href={full("feestschotels-voor-op-tafel-2026")} target="_blank">
+            <img
+              src={src("feestschotels-voor-op-tafel-2026")}
+              srcset={srcset("feestschotels-voor-op-tafel-2026")}
+              sizes="(max-width: 600px) 90vw, 260px"
+              width="640"
+              height="905"
+              alt="Affiche Heerlijk voor op tafel: prijslijst van koud buffet, gourmet-, fondue-, steengrill-, kaas- en charcuterieschotels en borrelhapjes"
+              loading="lazy"
+            />
+          </a>
+          <div class="menu-text">
+            <h3>Heerlijk voor op tafel</h3>
+            <dl class="platters">
+              {platters.map((p) => (
+                <div>
+                  <dt>
+                    {p.name}
+                    {p.note && <span>{p.note}</span>}
+                  </dt>
+                  <dd>{p.price}</dd>
+                </div>
+              ))}
+            </dl>
+            <p class="deadline">Alle prijzen per persoon</p>
+            <p class="extra">
+              Ook te verkrijgen: kleine broodjes, speciale broodjes, taarten
+              en feestgebak.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+)}
+
+<style>
+  .feestmenu {
+    background: var(--color-cream);
+  }
+
+  .feest-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 380px) 1fr;
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: center;
+    margin-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .feest-intro-text h2 {
+    margin: 0.75rem 0 1.25rem;
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  }
+
+  .feest-intro-text p:not(.eyebrow) {
+    color: var(--color-charcoal-soft);
+    max-width: 52ch;
+  }
+
+  .feest-intro-text p + p {
+    margin-top: 0.9rem;
+  }
+
+  .feest-intro-text a {
+    color: var(--color-copper);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .flyer {
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 18px 36px rgba(28, 23, 20, 0.18);
+  }
+
+  .flyer img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .flyer:hover img {
+    transform: scale(1.03);
+  }
+
+  .menus {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .menu-card {
+    display: grid;
+    grid-template-columns: minmax(0, 260px) 1fr;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: center;
+    background: var(--color-white);
+    border-radius: var(--radius);
+    padding: clamp(1.25rem, 3vw, 2rem);
+  }
+
+  .menu-text h3 {
+    font-size: clamp(1.5rem, 2.6vw, 1.9rem);
+    margin-bottom: 1rem;
+  }
+
+  .courses {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.5rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  .price {
+    margin-top: 1.25rem;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-copper);
+  }
+
+  .deadline {
+    margin-top: 0.3rem;
+    font-size: 0.9rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  .platters {
+    margin: 0;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .platters div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1px solid rgba(28, 23, 20, 0.08);
+  }
+
+  .platters dt {
+    font-weight: 600;
+  }
+
+  .platters dt span {
+    display: block;
+    font-weight: 400;
+    font-size: 0.85rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  .platters dd {
+    margin: 0;
+    white-space: nowrap;
+    font-weight: 600;
+    color: var(--color-copper);
+  }
+
+  .extra {
+    margin-top: 1rem;
+    color: var(--color-charcoal-soft);
+  }
+
+  @media (max-width: 860px) {
+    .feest-intro {
+      grid-template-columns: 1fr;
+    }
+
+    .flyer-cover {
+      max-width: 380px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .menu-card {
+      grid-template-columns: 1fr;
+    }
+
+    .menu-card .flyer {
+      max-width: 320px;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".feestmenu[data-until]").forEach((el) => {
+    if (Date.now() > Date.parse(el.dataset.until || "")) el.remove();
+  });
+</script>
