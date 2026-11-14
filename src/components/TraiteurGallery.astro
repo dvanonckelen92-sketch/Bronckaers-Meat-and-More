@@ -30,12 +30,6 @@ const photos = [
     height: 979,
     alt: "Koude schotel met hesp-aspergerolletjes, gerookte zalm en tomaat met garnalen",
   },
-  {
-    name: "koud-buffet-traiteur",
-    width: 640,
-    height: 627,
-    alt: "Koud buffet en gemengde sla met tomaat, van boven gezien",
-  },
 ];
 ---
 
@@ -97,6 +91,12 @@ const photos = [
     aspect-ratio: 4 / 5;
     overflow: hidden;
     border-radius: var(--radius);
+  }
+
+  /* Vijf foto's: de eerste neemt twee rijen in, zo blijft het raster vol. */
+  .photo:first-child {
+    grid-row: span 2;
+    aspect-ratio: auto;
   }
 
   .photo img {
