@@ -22,6 +22,10 @@ export const GET: APIRoute = ({ site }) => {
 ${openingHours.map((d) => `- ${d.day}: ${formatRanges(d.ranges)}`).join("\n")}
 
 Feestdagen kunnen afwijken; bel om te bevestigen.
+
+## Vaste weekactie
+
+- Elke donderdag is gehaktdag: varkens- en rundsgehakt aan 9 euro per kilo.
 ${activeClosures().map((c) => `
 ${c.title}: ${c.text}
 `).join("")}

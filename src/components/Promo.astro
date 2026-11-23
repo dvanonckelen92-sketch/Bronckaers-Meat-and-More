@@ -2,9 +2,10 @@
 // Blok voor een lopende actie; de tekst komt via de slot.
 // Na `until` verdwijnt het blok: bij de volgende build, en in de browser
 // meteen via het script onderaan voor wie een oudere build te zien krijgt.
+// Zonder `until` blijft het blok staan (bv. een vaste weekactie).
 interface Props {
   id: string;
-  until: string;
+  until?: string;
   eyebrow: string;
   title: string;
   img: { src: string; srcset?: string; width: number; height: number; alt: string };
@@ -13,7 +14,7 @@ interface Props {
 
 const { id, until, eyebrow, title, img, reverse = false } = Astro.props;
 
-const expired = Date.now() > Date.parse(until);
+const expired = until ? Date.now() > Date.parse(until) : false;
 ---
 
 {!expired && (
